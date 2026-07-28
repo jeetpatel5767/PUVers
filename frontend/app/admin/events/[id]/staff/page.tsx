@@ -40,7 +40,7 @@ export default function EventStaffPage() {
         action={
           <div className="flex gap-2">
             <Button onClick={() => setShowAdd(true)}>Add Staff</Button>
-            <Link href={`/organizer/events/${id}`}>
+            <Link href={`/admin/events/${id}`}>
               <Button variant="outline" size="sm">
                 Back
               </Button>

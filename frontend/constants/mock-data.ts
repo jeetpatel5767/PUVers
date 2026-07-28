@@ -21,25 +21,25 @@ export const DEMO_USERS: Record<string, User> = {
     department: "CSE",
     year: "3rd Year",
   },
-  organizer: {
+  admin: {
     id: "u2",
     name: "Priya Mehta",
     email: "priya@pu.ac.in",
-    role: "organizer",
+    role: "admin",
     organization: "Tech Fest Committee",
   },
-  admin: {
+  super_admin: {
     id: "u3",
     name: "Dr. Rajesh Kumar",
     email: "admin@pu.ac.in",
-    role: "admin",
+    role: "super_admin",
     organization: "PU Administration",
   },
-  super_admin: {
+  platform_admin: {
     id: "u4",
     name: "System Administrator",
     email: "superadmin@pu.ac.in",
-    role: "super_admin",
+    role: "platform_admin",
     organization: "PUVerse Platform",
   },
 };
@@ -280,9 +280,9 @@ export const ORGANIZATIONS: Organization[] = [
 
 export const ALL_USERS: User[] = [
   DEMO_USERS.student,
-  DEMO_USERS.organizer,
   DEMO_USERS.admin,
   DEMO_USERS.super_admin,
+  DEMO_USERS.platform_admin,
   {
     id: "u5",
     name: "Neha Patel",
@@ -303,7 +303,7 @@ export const ALL_USERS: User[] = [
     id: "u7",
     name: "Sneha Reddy",
     email: "sneha@pu.ac.in",
-    role: "organizer",
+    role: "admin",
     organization: "Cultural Committee",
   },
 ];
@@ -347,7 +347,7 @@ export const ROLE_PERMISSIONS: RolePermission[] = [
   },
   {
     id: "r2",
-    name: "Organizer",
+    name: "Admin",
     description: "Create and manage events, track attendance",
     permissions: [
       "events.create",
@@ -359,7 +359,7 @@ export const ROLE_PERMISSIONS: RolePermission[] = [
   },
   {
     id: "r3",
-    name: "Admin",
+    name: "Super Admin",
     description: "Approve events, manage users and organizations",
     permissions: [
       "events.approve",
@@ -370,7 +370,7 @@ export const ROLE_PERMISSIONS: RolePermission[] = [
   },
   {
     id: "r4",
-    name: "Super Admin",
+    name: "Platform Admin",
     description: "Full platform control including roles and system settings",
     permissions: ["*"],
   },

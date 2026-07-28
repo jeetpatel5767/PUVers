@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { useDemoStore } from "@/store/demo-store";
 import { ANALYTICS } from "@/constants/mock-data";
 
-export default function OrganizerAnalyticsPage() {
+export default function AdminAnalyticsPage() {
   const events = useDemoStore((s) => s.events);
   const myEvents = events.filter((e) => e.organizer === "Priya Mehta");
   const totalRegs = myEvents.reduce((sum, e) => sum + e.registered, 0);

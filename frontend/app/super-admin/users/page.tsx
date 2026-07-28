@@ -11,7 +11,7 @@ import { Select } from "@/components/ui/select";
 import { ALL_USERS } from "@/constants/mock-data";
 import { ROLE_LABELS } from "@/constants/navigation";
 
-export default function AdminUsersPage() {
+export default function SuperAdminUsersPage() {
   const [users, setUsers] = useState(ALL_USERS);
   const [showAdd, setShowAdd] = useState(false);
   const [editUser, setEditUser] = useState<(typeof ALL_USERS)[0] | null>(null);

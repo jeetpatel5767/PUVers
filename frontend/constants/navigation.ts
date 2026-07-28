@@ -2,9 +2,9 @@ import type { NavItem, UserRole } from "@/types";
 
 export const ROLE_HOME: Record<UserRole, string> = {
   student: "/student",
-  organizer: "/organizer",
   admin: "/admin",
   super_admin: "/super-admin",
+  platform_admin: "/platform-admin",
 };
 
 export const STUDENT_NAV: NavItem[] = [
@@ -17,36 +17,36 @@ export const STUDENT_NAV: NavItem[] = [
   { label: "Profile", href: "/student/profile" },
 ];
 
-export const ORGANIZER_NAV: NavItem[] = [
-  { label: "Dashboard", href: "/organizer" },
-  { label: "My Events", href: "/organizer/events" },
-  { label: "Create Event", href: "/organizer/events/create" },
-  { label: "Analytics", href: "/organizer/analytics" },
-];
-
 export const ADMIN_NAV: NavItem[] = [
   { label: "Dashboard", href: "/admin" },
-  { label: "Users", href: "/admin/users" },
-  { label: "Organizations", href: "/admin/organizations" },
-  { label: "Event Approvals", href: "/admin/events" },
+  { label: "My Events", href: "/admin/events" },
+  { label: "Create Event", href: "/admin/events/create" },
   { label: "Analytics", href: "/admin/analytics" },
-  { label: "Notifications", href: "/admin/notifications" },
-  { label: "Settings", href: "/admin/settings" },
 ];
 
 export const SUPER_ADMIN_NAV: NavItem[] = [
   { label: "Dashboard", href: "/super-admin" },
-  { label: "Roles & Permissions", href: "/super-admin/roles" },
   { label: "Users", href: "/super-admin/users" },
   { label: "Organizations", href: "/super-admin/organizations" },
-  { label: "All Events", href: "/super-admin/events" },
+  { label: "Event Approvals", href: "/super-admin/events" },
   { label: "Analytics", href: "/super-admin/analytics" },
-  { label: "System Settings", href: "/super-admin/settings" },
+  { label: "Notifications", href: "/super-admin/notifications" },
+  { label: "Settings", href: "/super-admin/settings" },
+];
+
+export const PLATFORM_ADMIN_NAV: NavItem[] = [
+  { label: "Dashboard", href: "/platform-admin" },
+  { label: "Roles & Permissions", href: "/platform-admin/roles" },
+  { label: "Users", href: "/platform-admin/users" },
+  { label: "Organizations", href: "/platform-admin/organizations" },
+  { label: "All Events", href: "/platform-admin/events" },
+  { label: "Analytics", href: "/platform-admin/analytics" },
+  { label: "System Settings", href: "/platform-admin/settings" },
 ];
 
 export const ROLE_LABELS: Record<UserRole, string> = {
   student: "Student",
-  organizer: "Organizer",
   admin: "Admin",
   super_admin: "Super Admin",
+  platform_admin: "Platform Admin",
 };

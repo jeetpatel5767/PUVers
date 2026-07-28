@@ -7,64 +7,63 @@ import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/badge";
 import { useDemoStore } from "@/store/demo-store";
-import { ANALYTICS } from "@/constants/mock-data";
+import { formatDate } from "@/lib/utils";
 
 export default function AdminDashboard() {
   const events = useDemoStore((s) => s.events);
-  const pending = events.filter((e) => e.status === "pending_approval");
+  const myEvents = events.filter((e) => e.organizer === "Priya Mehta");
+  const published = myEvents.filter((e) => e.status === "published");
+  const pending = myEvents.filter((e) => e.status === "pending_approval");
+  const totalRegs = myEvents.reduce((sum, e) => sum + e.registered, 0);
 
   return (
     <div>
       <PageHeader
         title="Admin Dashboard"
-        description="Platform overview and pending actions."
+        description="Manage your events, registrations, and attendance."
         action={
-          <Link href="/admin/events">
-            <Button>Review Events ({pending.length})</Button>
+          <Link href="/admin/events/create">
+            <Button>Create Event</Button>
           </Link>
         }
       />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Total Users" value={ANALYTICS.totalUsers} />
-        <StatCard label="Total Events" value={ANALYTICS.totalEvents} />
-        <StatCard label="Registrations" value={ANALYTICS.totalRegistrations.toLocaleString()} />
-        <StatCard label="Pending Approvals" value={pending.length} />
+        <StatCard label="Total Events" value={myEvents.length} />
+        <StatCard label="Published" value={published.length} />
+        <StatCard label="Pending Approval" value={pending.length} />
+        <StatCard label="Total Registrations" value={totalRegs} />
       </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-2">
-        <Card>
-          <CardTitle>Pending Event Approvals</CardTitle>
-          <div className="mt-4 space-y-3">
-            {pending.length === 0 ? (
-              <p className="text-sm text-neutral-500">No pending approvals.</p>
-            ) : (
-              pending.map((e) => (
-                <div key={e.id} className="flex items-center justify-between border-b border-neutral-100 py-2">
-                  <div>
-                    <p className="font-medium">{e.title}</p>
-                    <p className="text-xs text-neutral-500">{e.organization}</p>
-                  </div>
-                  <Link href="/admin/events">
+      <div className="mt-8">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="font-semibold">Recent Events</h2>
+          <Link href="/admin/events" className="text-sm underline">
+            View all
+          </Link>
+        </div>
+        <div className="space-y-3">
+          {myEvents.slice(0, 5).map((event) => (
+            <Card key={event.id}>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <CardTitle>{event.title}</CardTitle>
+                  <p className="text-xs text-neutral-500">
+                    {formatDate(event.startDate)} · {event.registered} registered
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <StatusBadge status={event.status} />
+                  <Link href={`/admin/events/${event.id}`}>
                     <Button variant="outline" size="sm">
-                      Review
+                      Manage
                     </Button>
                   </Link>
                 </div>
-              ))
-            )}
-          </div>
-        </Card>
-
-        <Card>
-          <CardTitle>Quick Actions</CardTitle>
-          <div className="mt-4 grid gap-2">
-            <Link href="/admin/users"><Button variant="outline" className="w-full justify-start">Manage Users</Button></Link>
-            <Link href="/admin/organizations"><Button variant="outline" className="w-full justify-start">Manage Organizations</Button></Link>
-            <Link href="/admin/analytics"><Button variant="outline" className="w-full justify-start">View Analytics</Button></Link>
-            <Link href="/admin/notifications"><Button variant="outline" className="w-full justify-start">Send Notification</Button></Link>
-          </div>
-        </Card>
+              </div>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );

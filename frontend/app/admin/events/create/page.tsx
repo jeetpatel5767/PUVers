@@ -29,16 +29,16 @@ export default function CreateEventPage() {
       organizer: "Priya Mehta",
       requiresApproval: form.get("requiresApproval") === "yes",
     });
-    router.push("/organizer/events");
+    router.push("/admin/events");
   };
 
   return (
     <div>
       <PageHeader
         title="Create Event"
-        description="Submit a new event for admin approval."
+        description="Submit a new event for super admin approval."
         action={
-          <Link href="/organizer/events">
+          <Link href="/admin/events">
             <Button variant="outline" size="sm">
               Cancel
             </Button>

@@ -59,7 +59,7 @@ export default function EventAttendancePage() {
         action={
           <div className="flex gap-2">
             <Button onClick={() => setScanMode(true)}>Open QR Scanner</Button>
-            <Link href={`/organizer/events/${id}`}>
+            <Link href={`/admin/events/${id}`}>
               <Button variant="outline" size="sm">
                 Back
               </Button>

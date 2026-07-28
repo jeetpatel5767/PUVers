@@ -55,7 +55,7 @@ export const useDemoStore = create<DemoState>()(
 
       login: (role) => {
         set({
-          user: DEMO_USERS[role === "super_admin" ? "super_admin" : role],
+          user: DEMO_USERS[role],
           isAuthenticated: true,
         });
       },
@@ -162,7 +162,7 @@ export const useDemoStore = create<DemoState>()(
         };
         set({
           events: [newEvent, ...get().events],
-          addToastMessage: "Event created — pending admin approval",
+          addToastMessage: "Event created — pending super admin approval",
         });
       },
 

@@ -14,9 +14,9 @@ import { useState } from "react";
 
 const ROLES: { value: UserRole; label: string; desc: string }[] = [
   { value: "student", label: "Student", desc: "Browse events, register, tickets & certificates" },
-  { value: "organizer", label: "Organizer", desc: "Create events, manage registrations & attendance" },
-  { value: "admin", label: "Admin", desc: "Approve events, manage users & organizations" },
-  { value: "super_admin", label: "Super Admin", desc: "Full platform control & system settings" },
+  { value: "admin", label: "Admin", desc: "Create events, manage registrations & attendance" },
+  { value: "super_admin", label: "Super Admin", desc: "Approve events, manage users & organizations" },
+  { value: "platform_admin", label: "Platform Admin", desc: "Full platform control & system settings" },
 ];
 
 export default function LoginPage() {

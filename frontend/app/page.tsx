@@ -71,7 +71,7 @@ export default function LandingPage() {
       <section className="mx-auto max-w-6xl px-4 py-16 text-center">
         <h2 className="text-2xl font-bold">Built for Everyone on Campus</h2>
         <div className="mt-8 grid gap-4 sm:grid-cols-4">
-          {["Students", "Organizers", "Admins", "Super Admins"].map((role) => (
+          {["Students", "Admins", "Super Admins", "Platform Admins"].map((role) => (
             <Card key={role}>
               <p className="font-semibold">{role}</p>
               <p className="mt-1 text-xs text-neutral-500">Dedicated dashboard & tools</p>

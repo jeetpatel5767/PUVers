@@ -30,7 +30,7 @@ export default function EventRegistrationsPage() {
             <Button variant="outline" onClick={() => setShowExport(true)}>
               Export CSV
             </Button>
-            <Link href={`/organizer/events/${id}`}>
+            <Link href={`/admin/events/${id}`}>
               <Button variant="ghost" size="sm">
                 Back
               </Button>

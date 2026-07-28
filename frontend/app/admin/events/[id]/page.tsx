@@ -10,7 +10,7 @@ import { StatusBadge } from "@/components/ui/badge";
 import { useDemoStore } from "@/store/demo-store";
 import { formatDate, formatDateTime } from "@/lib/utils";
 
-export default function OrganizerEventDetailPage() {
+export default function AdminEventDetailPage() {
   const params = useParams();
   const id = params.id as string;
   const events = useDemoStore((s) => s.events);
@@ -20,7 +20,7 @@ export default function OrganizerEventDetailPage() {
     return (
       <div className="py-12 text-center">
         <p>Event not found.</p>
-        <Link href="/organizer/events" className="mt-4 inline-block underline">
+        <Link href="/admin/events" className="mt-4 inline-block underline">
           Back
         </Link>
       </div>
@@ -33,12 +33,12 @@ export default function OrganizerEventDetailPage() {
         title={event.title}
         action={
           <div className="flex gap-2">
-            <Link href={`/organizer/events/${id}/edit`}>
+            <Link href={`/admin/events/${id}/edit`}>
               <Button variant="outline" size="sm">
                 Edit
               </Button>
             </Link>
-            <Link href="/organizer/events">
+            <Link href="/admin/events">
               <Button variant="ghost" size="sm">
                 Back
               </Button>
@@ -69,19 +69,19 @@ export default function OrganizerEventDetailPage() {
       </Card>
 
       <div className="grid gap-3 sm:grid-cols-3">
-        <Link href={`/organizer/events/${id}/registrations`}>
+        <Link href={`/admin/events/${id}/registrations`}>
           <Card className="text-center hover:bg-neutral-50">
             <p className="font-semibold">Registrations</p>
             <p className="text-sm text-neutral-500">View & export attendees</p>
           </Card>
         </Link>
-        <Link href={`/organizer/events/${id}/attendance`}>
+        <Link href={`/admin/events/${id}/attendance`}>
           <Card className="text-center hover:bg-neutral-50">
             <p className="font-semibold">Attendance</p>
             <p className="text-sm text-neutral-500">QR scanner & check-ins</p>
           </Card>
         </Link>
-        <Link href={`/organizer/events/${id}/staff`}>
+        <Link href={`/admin/events/${id}/staff`}>
           <Card className="text-center hover:bg-neutral-50">
             <p className="font-semibold">Event Staff</p>
             <p className="text-sm text-neutral-500">Assign scanners & coordinators</p>

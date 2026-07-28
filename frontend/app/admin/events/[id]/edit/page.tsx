@@ -33,7 +33,7 @@ export default function EditEventPage() {
       <PageHeader
         title="Edit Event"
         action={
-          <Link href={`/organizer/events/${id}`}>
+          <Link href={`/admin/events/${id}`}>
             <Button variant="outline" size="sm">
               Cancel
             </Button>
@@ -55,14 +55,14 @@ export default function EditEventPage() {
         open={showSaved}
         onClose={() => {
           setShowSaved(false);
-          router.push(`/organizer/events/${id}`);
+          router.push(`/admin/events/${id}`);
         }}
         title="Event Updated"
         footer={
           <Button
             onClick={() => {
               setShowSaved(false);
-              router.push(`/organizer/events/${id}`);
+              router.push(`/admin/events/${id}`);
             }}
           >
             OK

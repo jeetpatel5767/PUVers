@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { ORGANIZATIONS } from "@/constants/mock-data";
 
-export default function AdminOrganizationsPage() {
+export default function SuperAdminOrganizationsPage() {
   const [orgs, setOrgs] = useState(ORGANIZATIONS);
   const [showAdd, setShowAdd] = useState(false);
 
