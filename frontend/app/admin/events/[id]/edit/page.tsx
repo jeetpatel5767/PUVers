@@ -69,7 +69,7 @@ export default function EditEventPage() {
           </Button>
         }
       >
-        <p className="text-sm text-neutral-600">Event details saved (demo).</p>
+        <p className="text-sm text-[var(--ink-3)]">Event details saved (demo).</p>
       </Modal>
     </div>
   );

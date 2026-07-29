@@ -37,7 +37,7 @@ export default function AdminDashboard() {
 
       <div className="mt-8">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="font-semibold">Recent Events</h2>
+          <h2 className="font-semibold font-[family-name:var(--font-display)]">Recent Events</h2>
           <Link href="/admin/events" className="text-sm underline">
             View all
           </Link>
@@ -48,7 +48,7 @@ export default function AdminDashboard() {
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <CardTitle>{event.title}</CardTitle>
-                  <p className="text-xs text-neutral-500">
+                  <p className="text-xs text-[var(--ink-3)]">
                     {formatDate(event.startDate)} · {event.registered} registered
                   </p>
                 </div>

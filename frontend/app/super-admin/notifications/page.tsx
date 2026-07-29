@@ -65,15 +65,15 @@ export default function SuperAdminNotificationsPage() {
           <CardTitle>Sent Broadcasts</CardTitle>
           <div className="mt-4 space-y-3">
             {broadcasts.map((b) => (
-              <div key={b.id} className="border-b border-neutral-100 pb-3">
+              <div key={b.id} className="border-b border-[var(--hairline)] pb-3">
                 <div className="flex items-start justify-between">
                   <div>
                     <p className="font-medium">{b.title}</p>
-                    <p className="mt-1 text-xs text-neutral-500">{b.message}</p>
+                    <p className="mt-1 text-xs text-[var(--ink-2)]">{b.message}</p>
                   </div>
                   <StatusBadge status={b.status} />
                 </div>
-                <div className="mt-2 flex gap-3 text-xs text-neutral-500">
+                <div className="mt-2 flex gap-3 text-xs text-[var(--ink-2)]">
                   <span>To: {b.audience}</span>
                   <span>{formatDateTime(b.sentAt)}</span>
                 </div>
@@ -86,22 +86,22 @@ export default function SuperAdminNotificationsPage() {
           <CardTitle>Recent System Notifications</CardTitle>
           <div className="mt-4 space-y-3">
             {NOTIFICATIONS.map((n) => (
-              <div key={n.id} className="flex items-start gap-3 border-b border-neutral-100 pb-3">
+              <div key={n.id} className="flex items-start gap-3 border-b border-[var(--hairline)] pb-3">
                 <div
                   className={`mt-1 h-2 w-2 shrink-0 ${
                     n.type === "success"
-                      ? "bg-black"
+                      ? "bg-[var(--positive)]"
                       : n.type === "warning"
-                        ? "bg-neutral-400"
-                        : "bg-neutral-200"
+                        ? "bg-[var(--warning)]"
+                        : "bg-[var(--info)]"
                   }`}
                 />
                 <div className="flex-1">
                   <p className="text-sm font-medium">{n.title}</p>
-                  <p className="text-xs text-neutral-500">{n.message}</p>
-                  <p className="mt-1 text-xs text-neutral-400">{formatDateTime(n.createdAt)}</p>
+                  <p className="text-xs text-[var(--ink-2)]">{n.message}</p>
+                  <p className="mt-1 text-xs text-[var(--ink-3)]">{formatDateTime(n.createdAt)}</p>
                 </div>
-                <span className="text-xs text-neutral-400">{n.read ? "Read" : "Unread"}</span>
+                <span className="text-xs text-[var(--ink-3)]">{n.read ? "Read" : "Unread"}</span>
               </div>
             ))}
           </div>

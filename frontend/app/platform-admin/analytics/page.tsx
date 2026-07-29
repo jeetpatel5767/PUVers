@@ -52,8 +52,8 @@ export default function PlatformAdminAnalyticsPage() {
             {ANALYTICS.monthlyRegistrations.map((val, i) => (
               <div key={i} className="flex flex-1 flex-col items-center gap-1">
                 <span className="text-xs font-medium">{val}</span>
-                <div className="w-full bg-black" style={{ height: `${(val / 920) * 100}%` }} />
-                <span className="text-xs text-neutral-500">
+                <div className="w-full bg-[var(--accent-500)]" style={{ height: `${(val / 920) * 100}%` }} />
+                <span className="text-xs text-[var(--ink-2)]">
                   {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"][i]}
                 </span>
               </div>
@@ -68,9 +68,9 @@ export default function PlatformAdminAnalyticsPage() {
               <div key={i} className="flex items-center gap-3">
                 <div className="flex-1">
                   <p className="text-sm font-medium">{e.name}</p>
-                  <div className="mt-1 h-2 bg-neutral-100">
+                  <div className="mt-1 h-2 bg-[var(--bg-card)]">
                     <div
-                      className="h-full bg-black"
+                      className="h-full bg-[var(--accent-500)]"
                       style={{ width: `${(e.registrations / 800) * 100}%` }}
                     />
                   </div>
@@ -85,9 +85,9 @@ export default function PlatformAdminAnalyticsPage() {
           <CardTitle>Events by Status</CardTitle>
           <div className="mt-4 space-y-3">
             {Object.entries(statusCounts).map(([status, count]) => (
-              <div key={status} className="flex items-center justify-between border-b border-neutral-100 py-2">
+              <div key={status} className="flex items-center justify-between border-b border-[var(--hairline)] py-2">
                 <span className="text-sm capitalize">{status.replace("_", " ")}</span>
-                <span className="border border-black px-2 py-0.5 text-xs font-medium">{count}</span>
+                <span className="border border-[var(--border-card)] px-2 py-0.5 text-xs font-medium">{count}</span>
               </div>
             ))}
           </div>
@@ -102,8 +102,8 @@ export default function PlatformAdminAnalyticsPage() {
                 <div key={org} className="flex items-center gap-3">
                   <div className="flex-1">
                     <p className="text-sm">{org}</p>
-                    <div className="mt-1 h-2 bg-neutral-100">
-                      <div className="h-full bg-black" style={{ width: `${(count / 5) * 100}%` }} />
+                    <div className="mt-1 h-2 bg-[var(--bg-card)]">
+                      <div className="h-full bg-[var(--accent-500)]" style={{ width: `${(count / 5) * 100}%` }} />
                     </div>
                   </div>
                   <span className="text-sm font-medium">{count}</span>
@@ -116,9 +116,9 @@ export default function PlatformAdminAnalyticsPage() {
           <CardTitle>Users by Role</CardTitle>
           <div className="mt-4 space-y-3">
             {Object.entries(roleCounts).map(([role, count]) => (
-              <div key={role} className="flex items-center justify-between border-b border-neutral-100 py-2">
+              <div key={role} className="flex items-center justify-between border-b border-[var(--hairline)] py-2">
                 <span className="text-sm capitalize">{role.replace("_", " ")}</span>
-                <span className="border border-black px-2 py-0.5 text-xs font-medium">{count}</span>
+                <span className="border border-[var(--border-card)] px-2 py-0.5 text-xs font-medium">{count}</span>
               </div>
             ))}
           </div>
@@ -128,12 +128,12 @@ export default function PlatformAdminAnalyticsPage() {
           <CardTitle>Organization Activity</CardTitle>
           <div className="mt-4 space-y-3">
             {ORGANIZATIONS.map((org) => (
-              <div key={org.id} className="flex items-center justify-between border-b border-neutral-100 py-2">
+              <div key={org.id} className="flex items-center justify-between border-b border-[var(--hairline)] py-2">
                 <div>
                   <p className="text-sm font-medium">{org.name}</p>
-                  <p className="text-xs text-neutral-500">{org.type} &middot; {org.members} members</p>
+                  <p className="text-xs text-[var(--ink-2)]">{org.type} &middot; {org.members} members</p>
                 </div>
-                <span className="border border-black px-2 py-0.5 text-xs font-medium">{org.events} events</span>
+                <span className="border border-[var(--border-card)] px-2 py-0.5 text-xs font-medium">{org.events} events</span>
               </div>
             ))}
           </div>

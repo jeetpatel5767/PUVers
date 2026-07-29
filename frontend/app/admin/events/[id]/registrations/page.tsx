@@ -39,7 +39,7 @@ export default function EventRegistrationsPage() {
         }
       />
 
-      <p className="mb-4 text-sm text-neutral-600">
+      <p className="mb-4 text-sm text-[var(--ink-3)]">
         {eventRegs.length} registration(s) · Capacity {event?.capacity}
       </p>
 
@@ -64,7 +64,7 @@ export default function EventRegistrationsPage() {
         title="Export Registrations"
         footer={<Button onClick={() => setShowExport(false)}>Done</Button>}
       >
-        <p className="text-sm text-neutral-600">
+        <p className="text-sm text-[var(--ink-3)]">
           CSV export started with {eventRegs.length || 3} records (demo).
         </p>
       </Modal>

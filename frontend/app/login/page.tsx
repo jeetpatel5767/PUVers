@@ -12,11 +12,11 @@ import { useDemoStore } from "@/store/demo-store";
 import type { UserRole } from "@/types";
 import { useState } from "react";
 
-const ROLES: { value: UserRole; label: string; desc: string }[] = [
-  { value: "student", label: "Student", desc: "Browse events, register, tickets & certificates" },
-  { value: "admin", label: "Admin", desc: "Create events, manage registrations & attendance" },
-  { value: "super_admin", label: "Super Admin", desc: "Approve events, manage users & organizations" },
-  { value: "platform_admin", label: "Platform Admin", desc: "Full platform control & system settings" },
+const ROLES: { value: UserRole; label: string; desc: string; color: string }[] = [
+  { value: "student", label: "Student", desc: "Browse events, register, tickets & certificates", color: "var(--role-student)" },
+  { value: "admin", label: "Admin", desc: "Create events, manage registrations & attendance", color: "var(--role-admin)" },
+  { value: "super_admin", label: "Super Admin", desc: "Approve events, manage users & organizations", color: "var(--role-super)" },
+  { value: "platform_admin", label: "Platform Admin", desc: "Full platform control & system settings", color: "var(--role-platform)" },
 ];
 
 export default function LoginPage() {
@@ -36,8 +36,10 @@ export default function LoginPage() {
     <PublicShell>
       <div className="mx-auto flex max-w-4xl flex-col gap-8 px-4 py-12 lg:flex-row">
         <div className="flex-1">
-          <h1 className="text-3xl font-bold">Login</h1>
-          <p className="mt-2 text-neutral-600">
+          <h1 className="text-3xl font-bold font-[family-name:var(--font-display)] text-[var(--ink-1)]">
+            Login
+          </h1>
+          <p className="mt-2 text-[var(--ink-2)]">
             Demo login — pick a role to explore that user journey.
           </p>
 
@@ -64,7 +66,7 @@ export default function LoginPage() {
               options={ROLES.map((r) => ({ value: r.value, label: r.label }))}
             />
             <div className="flex items-center justify-between">
-              <Link href="/forgot-password" className="text-sm underline">
+              <Link href="/forgot-password" className="text-sm text-[var(--ink-3)] hover:text-[var(--accent-500)]">
                 Forgot password?
               </Link>
             </div>
@@ -73,26 +75,38 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <p className="mt-4 text-center text-sm">
+          <p className="mt-4 text-center text-sm text-[var(--ink-3)]">
             Don&apos;t have an account?{" "}
-            <Link href="/register" className="underline">
+            <Link href="/register" className="text-[var(--accent-500)] hover:text-[var(--accent-400)]">
               Register
             </Link>
           </p>
         </div>
 
         <div className="flex-1 space-y-3">
-          <p className="text-sm font-medium">Quick role preview</p>
+          <p className="text-sm font-medium text-[var(--ink-2)]">Quick role preview</p>
           {ROLES.map((r) => (
             <Card
               key={r.value}
-              onClick={() => {
-                setRole(r.value);
-              }}
-              className={role === r.value ? "ring-2 ring-black" : ""}
+              onClick={() => setRole(r.value)}
+              className={
+                role === r.value
+                  ? "!border-[var(--accent-500)] shadow-[0_0_0_1px_var(--accent-glow)]"
+                  : ""
+              }
             >
-              <p className="font-semibold">{r.label}</p>
-              <p className="text-sm text-neutral-600">{r.desc}</p>
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-9 h-9 rounded-[35%] flex items-center justify-center text-white text-xs font-semibold flex-none"
+                  style={{ background: `linear-gradient(135deg, ${r.color}, ${r.color}cc)` }}
+                >
+                  {r.label[0]}
+                </div>
+                <div>
+                  <p className="font-semibold text-[var(--ink-1)]">{r.label}</p>
+                  <p className="text-sm text-[var(--ink-2)]">{r.desc}</p>
+                </div>
+              </div>
             </Card>
           ))}
         </div>

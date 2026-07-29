@@ -56,8 +56,8 @@ export default function StudentEventsPage() {
               <CardTitle>{event.title}</CardTitle>
               <StatusBadge status={event.category} />
             </div>
-            <p className="mt-2 text-sm text-neutral-600 line-clamp-2">{event.description}</p>
-            <div className="mt-3 space-y-1 text-xs text-neutral-500">
+            <p className="mt-2 text-sm text-[var(--ink-2)] line-clamp-2">{event.description}</p>
+            <div className="mt-3 space-y-1 text-xs text-[var(--ink-3)]">
               <p>{formatDate(event.startDate)}</p>
               <p>{event.venue}</p>
               <p>
@@ -74,7 +74,7 @@ export default function StudentEventsPage() {
       </div>
 
       {filtered.length === 0 && (
-        <p className="py-12 text-center text-neutral-500">No events match your search.</p>
+        <p className="py-12 text-center text-[var(--ink-3)]">No events match your search.</p>
       )}
     </div>
   );

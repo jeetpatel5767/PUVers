@@ -24,7 +24,7 @@ export default function PlatformAdminOrganizationsPage() {
         action={<Button onClick={() => setShowAdd(true)}>Add Organization</Button>}
       />
 
-      <div className="mb-4 border border-black bg-neutral-50 px-4 py-2 text-sm">
+      <div className="mb-4 border border-[var(--border-card)] bg-[var(--bg-card)] px-4 py-2 text-sm">
         {orgs.filter((o) => o.status === "active").length} active &middot;{" "}
         {orgs.filter((o) => o.status === "inactive").length} inactive &middot;{" "}
         {orgs.reduce((s, o) => s + o.members, 0)} total members

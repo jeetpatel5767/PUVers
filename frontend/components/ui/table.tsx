@@ -9,12 +9,20 @@ interface TableProps {
 
 export function Table({ headers, children, className }: TableProps) {
   return (
-    <div className={cn("overflow-x-auto border border-black", className)}>
+    <div
+      className={cn(
+        "pv-table-wrap overflow-x-auto rounded-[var(--r-xl)] border border-[var(--border-card)]",
+        className,
+      )}
+    >
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-black bg-neutral-50">
+          <tr className="border-b border-[var(--hairline)] bg-[var(--bg-card-hover)] backdrop-blur-xl">
             {headers.map((h) => (
-              <th key={h} className="px-4 py-2 text-left font-semibold">
+              <th
+                key={h}
+                className="px-4 py-3.5 text-left text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--ink-3)]"
+              >
                 {h}
               </th>
             ))}
@@ -37,8 +45,8 @@ export function TableRow({
     <tr
       onClick={onClick}
       className={cn(
-        "border-b border-neutral-200 last:border-0",
-        onClick && "cursor-pointer hover:bg-neutral-50",
+        "border-b border-[var(--hairline)] last:border-0 transition-colors duration-150",
+        onClick && "cursor-pointer hover:bg-[var(--bg-card-hover)]",
       )}
     >
       {children}
@@ -47,5 +55,9 @@ export function TableRow({
 }
 
 export function TableCell({ children, className }: { children: ReactNode; className?: string }) {
-  return <td className={cn("px-4 py-2", className)}>{children}</td>;
+  return (
+    <td className={cn("px-4 py-3.5 text-[var(--ink-2)]", className)}>
+      {children}
+    </td>
+  );
 }

@@ -16,18 +16,18 @@ interface ToggleSettingProps {
 
 function ToggleSetting({ label, description, enabled, onToggle }: ToggleSettingProps) {
   return (
-    <div className="flex items-center justify-between border-b border-neutral-100 py-3">
+    <div className="flex items-center justify-between border-b border-[var(--hairline)] py-3">
       <div>
         <p className="text-sm font-medium">{label}</p>
-        <p className="text-xs text-neutral-500">{description}</p>
+        <p className="text-xs text-[var(--ink-2)]">{description}</p>
       </div>
       <button
         onClick={onToggle}
-        className={`relative h-6 w-11 border border-black transition-colors ${enabled ? "bg-black" : "bg-white"}`}
+        className={`relative h-6 w-11 border border-[var(--border-card)] transition-colors ${enabled ? "bg-[var(--accent-500)]" : "bg-[var(--bg-card)]"}`}
       >
         <span
-          className={`absolute top-0.5 h-4 w-4 border border-black transition-transform ${
-            enabled ? "translate-x-5 bg-white" : "translate-x-0.5 bg-black"
+          className={`absolute top-0.5 h-4 w-4 border border-[var(--border-card)] transition-transform ${
+            enabled ? "translate-x-5 bg-white" : "translate-x-0.5 bg-[var(--accent-500)]"
           }`}
         />
       </button>

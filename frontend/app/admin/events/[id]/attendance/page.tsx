@@ -70,7 +70,7 @@ export default function EventAttendancePage() {
 
       <div className="mb-6 grid gap-4 lg:grid-cols-2">
         <Card>
-          <h3 className="font-semibold">Manual Check-in</h3>
+          <h3 className="font-semibold font-[family-name:var(--font-display)]">Manual Check-in</h3>
           <div className="mt-4 flex gap-2">
             <Input
               placeholder="Student email"
@@ -82,9 +82,9 @@ export default function EventAttendancePage() {
           </div>
         </Card>
         <Card>
-          <h3 className="font-semibold">Stats</h3>
-          <p className="mt-2 text-3xl font-bold">{attendance.length}</p>
-          <p className="text-sm text-neutral-500">Total check-ins</p>
+          <h3 className="font-semibold font-[family-name:var(--font-display)]">Stats</h3>
+          <p className="mt-2 text-3xl font-[family-name:var(--font-mono)] font-light">{attendance.length}</p>
+          <p className="text-sm text-[var(--ink-3)]">Total check-ins</p>
         </Card>
       </div>
 
@@ -94,7 +94,7 @@ export default function EventAttendancePage() {
             <TableCell>{a.studentName}</TableCell>
             <TableCell>{a.studentEmail}</TableCell>
             <TableCell>{formatDate(a.checkedInAt)}</TableCell>
-            <TableCell className="uppercase text-xs">{a.method}</TableCell>
+            <TableCell className="font-[family-name:var(--font-mono)] uppercase tracking-[0.08em] text-[11px]">{a.method}</TableCell>
           </TableRow>
         ))}
       </Table>
@@ -114,10 +114,10 @@ export default function EventAttendancePage() {
         }
       >
         <div className="flex flex-col items-center py-4">
-          <div className="border-2 border-dashed border-black p-8">
+          <div className="border-2 border-dashed border-[var(--border-card-hover)] p-8">
             <QRDisplay code="SCAN-AREA" size={140} />
           </div>
-          <p className="mt-4 text-sm text-neutral-500">Point camera at student ticket QR</p>
+          <p className="mt-4 text-sm text-[var(--ink-3)]">Point camera at student ticket QR</p>
         </div>
       </Modal>
 
@@ -127,7 +127,7 @@ export default function EventAttendancePage() {
         title="Check-in Successful"
         footer={<Button onClick={() => setShowSuccess(false)}>OK</Button>}
       >
-        <p className="text-sm text-neutral-600">Student checked in successfully (demo).</p>
+        <p className="text-sm text-[var(--ink-3)]">Student checked in successfully (demo).</p>
       </Modal>
     </div>
   );

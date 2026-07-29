@@ -47,8 +47,8 @@ export default function SuperAdminAnalyticsPage() {
             {ANALYTICS.monthlyRegistrations.map((val, i) => (
               <div key={i} className="flex flex-1 flex-col items-center gap-1">
                 <span className="text-xs font-medium">{val}</span>
-                <div className="w-full bg-black" style={{ height: `${(val / 920) * 100}%` }} />
-                <span className="text-xs text-neutral-500">
+                <div className="w-full bg-[var(--accent-500)]" style={{ height: `${(val / 920) * 100}%` }} />
+                <span className="text-xs text-[var(--ink-2)]">
                   {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"][i]}
                 </span>
               </div>
@@ -63,9 +63,9 @@ export default function SuperAdminAnalyticsPage() {
               <div key={i} className="flex items-center gap-3">
                 <div className="flex-1">
                   <p className="text-sm font-medium">{e.name}</p>
-                  <div className="mt-1 h-2 bg-neutral-100">
+                  <div className="mt-1 h-2 bg-[var(--bg-card)]">
                     <div
-                      className="h-full bg-black"
+                      className="h-full bg-[var(--accent-500)]"
                       style={{ width: `${(e.registrations / 800) * 100}%` }}
                     />
                   </div>
@@ -80,9 +80,9 @@ export default function SuperAdminAnalyticsPage() {
           <CardTitle>Events by Category</CardTitle>
           <div className="mt-4 space-y-3">
             {Object.entries(categoryBreakdown).map(([cat, count]) => (
-              <div key={cat} className="flex items-center justify-between border-b border-neutral-100 py-2">
+              <div key={cat} className="flex items-center justify-between border-b border-[var(--hairline)] py-2">
                 <span className="text-sm">{cat}</span>
-                <span className="border border-black px-2 py-0.5 text-xs font-medium">{count}</span>
+                <span className="border border-[var(--border-card)] px-2 py-0.5 text-xs font-medium">{count}</span>
               </div>
             ))}
           </div>
@@ -92,9 +92,9 @@ export default function SuperAdminAnalyticsPage() {
           <CardTitle>Users by Department / Org</CardTitle>
           <div className="mt-4 space-y-3">
             {Object.entries(departmentBreakdown).map(([dept, count]) => (
-              <div key={dept} className="flex items-center justify-between border-b border-neutral-100 py-2">
+              <div key={dept} className="flex items-center justify-between border-b border-[var(--hairline)] py-2">
                 <span className="text-sm">{dept}</span>
-                <span className="border border-black px-2 py-0.5 text-xs font-medium">{count}</span>
+                <span className="border border-[var(--border-card)] px-2 py-0.5 text-xs font-medium">{count}</span>
               </div>
             ))}
           </div>

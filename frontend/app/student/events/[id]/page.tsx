@@ -65,30 +65,30 @@ export default function StudentEventDetailPage() {
               <StatusBadge status={event.category} />
               {event.requiresApproval && <StatusBadge status="requires approval" />}
             </div>
-            <p className="mt-4 text-neutral-700">{event.description}</p>
+            <p className="mt-4 text-[var(--ink-2)]">{event.description}</p>
           </Card>
 
           <Card>
-            <h3 className="font-semibold">Event Details</h3>
+            <h3 className="font-semibold font-[family-name:var(--font-display)]">Event Details</h3>
             <dl className="mt-3 space-y-2 text-sm">
-              <div className="flex justify-between border-b border-neutral-100 py-2">
-                <dt className="text-neutral-500">Organization</dt>
+              <div className="flex justify-between border-b border-[var(--hairline)] py-2">
+                <dt className="text-[var(--ink-3)]">Organization</dt>
                 <dd>{event.organization}</dd>
               </div>
-              <div className="flex justify-between border-b border-neutral-100 py-2">
-                <dt className="text-neutral-500">Organizer</dt>
+              <div className="flex justify-between border-b border-[var(--hairline)] py-2">
+                <dt className="text-[var(--ink-3)]">Organizer</dt>
                 <dd>{event.organizer}</dd>
               </div>
-              <div className="flex justify-between border-b border-neutral-100 py-2">
-                <dt className="text-neutral-500">Venue</dt>
+              <div className="flex justify-between border-b border-[var(--hairline)] py-2">
+                <dt className="text-[var(--ink-3)]">Venue</dt>
                 <dd>{event.venue}</dd>
               </div>
-              <div className="flex justify-between border-b border-neutral-100 py-2">
-                <dt className="text-neutral-500">Start</dt>
+              <div className="flex justify-between border-b border-[var(--hairline)] py-2">
+                <dt className="text-[var(--ink-3)]">Start</dt>
                 <dd>{formatDateTime(event.startDate)}</dd>
               </div>
               <div className="flex justify-between py-2">
-                <dt className="text-neutral-500">End</dt>
+                <dt className="text-[var(--ink-3)]">End</dt>
                 <dd>{formatDateTime(event.endDate)}</dd>
               </div>
             </dl>
@@ -97,16 +97,16 @@ export default function StudentEventDetailPage() {
 
         <div>
           <Card>
-            <h3 className="font-semibold">Registration</h3>
-            <p className="mt-2 text-2xl font-bold">
+            <h3 className="font-semibold font-[family-name:var(--font-display)]">Registration</h3>
+            <p className="mt-2 text-2xl font-light font-[family-name:var(--font-mono)]">
               {event.registered} / {event.capacity}
             </p>
-            <p className="text-sm text-neutral-500">spots filled</p>
+            <p className="text-sm text-[var(--ink-3)]">spots filled</p>
 
             {existingReg || registered ? (
               <div className="mt-4 space-y-2">
                 <StatusBadge status={existingReg?.status ?? "registered"} />
-                <p className="text-sm text-neutral-600">You are registered for this event.</p>
+                <p className="text-sm text-[var(--ink-2)]">You are registered for this event.</p>
                 <Link href="/student/tickets">
                   <Button variant="outline" className="w-full mt-2">
                     View Ticket
@@ -121,7 +121,7 @@ export default function StudentEventDetailPage() {
                 {isFull ? "Join Waitlist" : "Register Now"}
               </Button>
             ) : (
-              <p className="mt-4 text-sm text-neutral-500">Registration not available.</p>
+              <p className="mt-4 text-sm text-[var(--ink-3)]">Registration not available.</p>
             )}
           </Card>
         </div>
@@ -142,7 +142,7 @@ export default function StudentEventDetailPage() {
           </>
         }
       >
-        <p className="text-sm text-neutral-600">
+        <p className="text-sm text-[var(--ink-2)]">
           {isFull
             ? `This event is full. You'll be added to the waitlist for "${event.title}".`
             : `Register for "${event.title}" on ${formatDate(event.startDate)}? A QR ticket will be issued immediately.`}

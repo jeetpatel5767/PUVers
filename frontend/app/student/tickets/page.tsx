@@ -36,7 +36,7 @@ export default function StudentTicketsPage() {
               <div className="flex items-start justify-between">
                 <div>
                   <p className="font-semibold">{ticket.eventTitle}</p>
-                  <p className="text-xs text-neutral-500">Issued {formatDate(ticket.issuedAt)}</p>
+                  <p className="text-xs text-[var(--ink-3)]">Issued {formatDate(ticket.issuedAt)}</p>
                 </div>
                 <StatusBadge status={ticket.status} />
               </div>
@@ -66,7 +66,7 @@ export default function StudentTicketsPage() {
           <div className="flex flex-col items-center">
             <QRDisplay code={selected.ticketCode} size={200} />
             <p className="mt-4 text-center font-semibold">{selected.eventTitle}</p>
-            <p className="text-sm text-neutral-500">Show this QR code at the venue entrance</p>
+            <p className="text-sm text-[var(--ink-3)]">Show this QR code at the venue entrance</p>
           </div>
         )}
       </Modal>

@@ -24,7 +24,7 @@ export default function AdminAnalyticsPage() {
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <Card>
-          <h3 className="font-semibold">Top Events by Registrations</h3>
+          <h3 className="font-semibold font-[family-name:var(--font-display)]">Top Events by Registrations</h3>
           <div className="mt-4 space-y-3">
             {myEvents
               .sort((a, b) => b.registered - a.registered)
@@ -33,9 +33,9 @@ export default function AdminAnalyticsPage() {
                 <div key={e.id} className="flex items-center gap-3">
                   <div className="flex-1">
                     <p className="text-sm font-medium">{e.title}</p>
-                    <div className="mt-1 h-2 bg-neutral-100">
+                    <div className="mt-1 h-2 bg-[var(--bg-card)] rounded-full">
                       <div
-                        className="h-full bg-black"
+                        className="h-full bg-[var(--accent-500)]"
                         style={{ width: `${(e.registered / e.capacity) * 100}%` }}
                       />
                     </div>
@@ -47,12 +47,12 @@ export default function AdminAnalyticsPage() {
         </Card>
 
         <Card>
-          <h3 className="font-semibold">Monthly Registrations</h3>
+          <h3 className="font-semibold font-[family-name:var(--font-display)]">Monthly Registrations</h3>
           <div className="mt-4 flex items-end gap-2 h-40">
             {ANALYTICS.monthlyRegistrations.map((val, i) => (
               <div key={i} className="flex flex-1 flex-col items-center gap-1">
-                <div className="w-full bg-black" style={{ height: `${(val / 920) * 100}%` }} />
-                <span className="text-xs text-neutral-500">M{i + 1}</span>
+                <div className="w-full bg-[var(--accent-500)]" style={{ height: `${(val / 920) * 100}%` }} />
+                <span className="text-xs text-[var(--ink-3)]">M{i + 1}</span>
               </div>
             ))}
           </div>

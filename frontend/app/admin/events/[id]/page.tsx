@@ -59,32 +59,32 @@ export default function AdminEventDetailPage() {
       </div>
 
       <Card className="mb-6">
-        <p className="text-neutral-700">{event.description}</p>
+        <p className="text-[var(--ink-2)]">{event.description}</p>
         <dl className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
-          <div><span className="text-neutral-500">Venue:</span> {event.venue}</div>
-          <div><span className="text-neutral-500">Organization:</span> {event.organization}</div>
-          <div><span className="text-neutral-500">Start:</span> {formatDateTime(event.startDate)}</div>
-          <div><span className="text-neutral-500">End:</span> {formatDateTime(event.endDate)}</div>
+          <div><span className="text-[var(--ink-3)]">Venue:</span> {event.venue}</div>
+          <div><span className="text-[var(--ink-3)]">Organization:</span> {event.organization}</div>
+          <div><span className="text-[var(--ink-3)]">Start:</span> {formatDateTime(event.startDate)}</div>
+          <div><span className="text-[var(--ink-3)]">End:</span> {formatDateTime(event.endDate)}</div>
         </dl>
       </Card>
 
       <div className="grid gap-3 sm:grid-cols-3">
         <Link href={`/admin/events/${id}/registrations`}>
-          <Card className="text-center hover:bg-neutral-50">
+          <Card className="text-center hover:bg-[var(--bg-card-hover)]">
             <p className="font-semibold">Registrations</p>
-            <p className="text-sm text-neutral-500">View & export attendees</p>
+            <p className="text-sm text-[var(--ink-3)]">View & export attendees</p>
           </Card>
         </Link>
         <Link href={`/admin/events/${id}/attendance`}>
-          <Card className="text-center hover:bg-neutral-50">
+          <Card className="text-center hover:bg-[var(--bg-card-hover)]">
             <p className="font-semibold">Attendance</p>
-            <p className="text-sm text-neutral-500">QR scanner & check-ins</p>
+            <p className="text-sm text-[var(--ink-3)]">QR scanner & check-ins</p>
           </Card>
         </Link>
         <Link href={`/admin/events/${id}/staff`}>
-          <Card className="text-center hover:bg-neutral-50">
+          <Card className="text-center hover:bg-[var(--bg-card-hover)]">
             <p className="font-semibold">Event Staff</p>
-            <p className="text-sm text-neutral-500">Assign scanners & coordinators</p>
+            <p className="text-sm text-[var(--ink-3)]">Assign scanners & coordinators</p>
           </Card>
         </Link>
       </div>

@@ -46,13 +46,13 @@ export default function PlatformAdminDashboard() {
           <CardTitle>Pending Event Approvals</CardTitle>
           <div className="mt-4 space-y-3">
             {pending.length === 0 ? (
-              <p className="text-sm text-neutral-500">No pending approvals.</p>
+              <p className="text-sm text-[var(--ink-2)]">No pending approvals.</p>
             ) : (
               pending.map((e) => (
-                <div key={e.id} className="flex items-center justify-between border-b border-neutral-100 py-2">
+                <div key={e.id} className="flex items-center justify-between border-b border-[var(--hairline)] py-2">
                   <div>
                     <p className="font-medium">{e.title}</p>
-                    <p className="text-xs text-neutral-500">{e.organization} &middot; {e.organizer}</p>
+                    <p className="text-xs text-[var(--ink-2)]">{e.organization} &middot; {e.organizer}</p>
                   </div>
                   <Link href="/platform-admin/events">
                     <Button variant="outline" size="sm">Review</Button>
@@ -67,10 +67,10 @@ export default function PlatformAdminDashboard() {
           <CardTitle>Recent Admins</CardTitle>
           <div className="mt-4 space-y-3">
             {admins.map((u) => (
-              <div key={u.id} className="flex items-center justify-between border-b border-neutral-100 py-2">
+              <div key={u.id} className="flex items-center justify-between border-b border-[var(--hairline)] py-2">
                 <div>
                   <p className="text-sm font-medium">{u.name}</p>
-                  <p className="text-xs text-neutral-500">{u.email}</p>
+                  <p className="text-xs text-[var(--ink-2)]">{u.email}</p>
                 </div>
                 <StatusBadge status="admin" />
               </div>

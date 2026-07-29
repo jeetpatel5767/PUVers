@@ -21,8 +21,10 @@ export default function RegisterPage() {
   return (
     <PublicShell>
       <div className="mx-auto max-w-md px-4 py-12">
-        <h1 className="text-3xl font-bold">Register</h1>
-        <p className="mt-2 text-neutral-600">Create your PUVerse account (demo).</p>
+        <h1 className="text-3xl font-bold font-[family-name:var(--font-display)] text-[var(--ink-1)]">
+          Register
+        </h1>
+        <p className="mt-2 text-[var(--ink-2)]">Create your PUVerse account (demo).</p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
           <Input label="Full Name" id="name" defaultValue="New Student" required />
@@ -52,9 +54,9 @@ export default function RegisterPage() {
           </Button>
         </form>
 
-        <p className="mt-4 text-center text-sm">
+        <p className="mt-4 text-center text-sm text-[var(--ink-3)]">
           Already have an account?{" "}
-          <Link href="/login" className="underline">
+          <Link href="/login" className="text-[var(--accent-500)] hover:text-[var(--accent-400)]">
             Login
           </Link>
         </p>
@@ -75,7 +77,7 @@ export default function RegisterPage() {
           </Button>
         }
       >
-        <p className="text-sm text-neutral-600">
+        <p className="text-sm text-[var(--ink-2)]">
           Your account has been created. Please login to continue exploring PUVerse.
         </p>
       </Modal>

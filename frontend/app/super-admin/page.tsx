@@ -37,13 +37,13 @@ export default function SuperAdminDashboard() {
           <CardTitle>Pending Event Approvals</CardTitle>
           <div className="mt-4 space-y-3">
             {pending.length === 0 ? (
-              <p className="text-sm text-neutral-500">No pending approvals.</p>
+              <p className="text-sm text-[var(--ink-2)]">No pending approvals.</p>
             ) : (
               pending.map((e) => (
-                <div key={e.id} className="flex items-center justify-between border-b border-neutral-100 py-2">
+                <div key={e.id} className="flex items-center justify-between border-b border-[var(--hairline)] py-2">
                   <div>
                     <p className="font-medium">{e.title}</p>
-                    <p className="text-xs text-neutral-500">{e.organization}</p>
+                    <p className="text-xs text-[var(--ink-2)]">{e.organization}</p>
                   </div>
                   <Link href="/super-admin/events">
                     <Button variant="outline" size="sm">

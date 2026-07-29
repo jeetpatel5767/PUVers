@@ -35,11 +35,11 @@ export default function StudentNotificationsPage() {
                 <div className="flex items-center gap-2">
                   <p className="font-semibold">{n.title}</p>
                   {!n.read && (
-                    <span className="h-2 w-2 rounded-full bg-black" aria-label="Unread" />
+                    <span className="h-2 w-2 rounded-full bg-[var(--accent-500)]" aria-label="Unread" />
                   )}
                 </div>
-                <p className="mt-1 text-sm text-neutral-600">{n.message}</p>
-                <p className="mt-2 text-xs text-neutral-400">{formatDate(n.createdAt)}</p>
+                <p className="mt-1 text-sm text-[var(--ink-2)]">{n.message}</p>
+                <p className="mt-2 text-xs text-[var(--ink-3)]">{formatDate(n.createdAt)}</p>
               </div>
               {!n.read && (
                 <Button variant="ghost" size="sm" onClick={() => markRead(n.id)}>

@@ -24,7 +24,7 @@ export default function StudentProfilePage() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
-          <h3 className="font-semibold">Personal Information</h3>
+          <h3 className="font-semibold font-[family-name:var(--font-display)]">Personal Information</h3>
           <form onSubmit={handleSave} className="mt-4 space-y-4">
             <Input label="Full Name" id="name" defaultValue={user?.name} />
             <Input label="Email" id="email" type="email" defaultValue={user?.email} disabled />
@@ -36,14 +36,14 @@ export default function StudentProfilePage() {
         </Card>
 
         <Card>
-          <h3 className="font-semibold">Security</h3>
+          <h3 className="font-semibold font-[family-name:var(--font-display)]">Security</h3>
           <div className="mt-4 space-y-4">
             <Button variant="outline" onClick={() => setShowPassword(true)}>
               Change Password
             </Button>
-            <div className="border-t border-neutral-200 pt-4">
+            <div className="border-t border-[var(--hairline)] pt-4">
               <p className="text-sm font-medium">Account Role</p>
-              <p className="mt-1 text-sm text-neutral-600 capitalize">{user?.role?.replace("_", " ")}</p>
+              <p className="mt-1 text-sm text-[var(--ink-2)] capitalize">{user?.role?.replace("_", " ")}</p>
             </div>
           </div>
         </Card>
@@ -55,7 +55,7 @@ export default function StudentProfilePage() {
         title="Profile Updated"
         footer={<Button onClick={() => setShowSave(false)}>OK</Button>}
       >
-        <p className="text-sm text-neutral-600">Your profile has been saved (demo).</p>
+        <p className="text-sm text-[var(--ink-2)]">Your profile has been saved (demo).</p>
       </Modal>
 
       <Modal

@@ -41,14 +41,14 @@ export default function StudentDashboard() {
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <div>
-          <h2 className="mb-4 font-semibold">Upcoming Events</h2>
+          <h2 className="mb-4 font-semibold font-[family-name:var(--font-display)]">Upcoming Events</h2>
           <div className="space-y-3">
             {upcoming.map((event) => (
               <Card key={event.id}>
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <CardTitle>{event.title}</CardTitle>
-                    <p className="mt-1 text-xs text-neutral-500">
+                    <p className="mt-1 text-xs text-[var(--ink-3)]">
                       {formatDate(event.startDate)} · {event.venue}
                     </p>
                   </div>
@@ -65,21 +65,21 @@ export default function StudentDashboard() {
         </div>
 
         <div>
-          <h2 className="mb-4 font-semibold">Recent Registrations</h2>
+          <h2 className="mb-4 font-semibold font-[family-name:var(--font-display)]">Recent Registrations</h2>
           <div className="space-y-3">
             {activeRegs.slice(0, 3).map((reg) => (
               <Card key={reg.id}>
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium">{reg.eventTitle}</p>
-                    <p className="text-xs text-neutral-500">{formatDate(reg.registeredAt)}</p>
+                    <p className="text-xs text-[var(--ink-3)]">{formatDate(reg.registeredAt)}</p>
                   </div>
                   <StatusBadge status={reg.status} />
                 </div>
               </Card>
             ))}
             {activeRegs.length === 0 && (
-              <p className="text-sm text-neutral-500">No registrations yet.</p>
+              <p className="text-sm text-[var(--ink-3)]">No registrations yet.</p>
             )}
           </div>
           <Link href="/student/registrations" className="mt-4 inline-block text-sm underline">

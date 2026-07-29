@@ -18,8 +18,10 @@ export default function ForgotPasswordPage() {
   return (
     <PublicShell>
       <div className="mx-auto max-w-md px-4 py-12">
-        <h1 className="text-3xl font-bold">Forgot Password</h1>
-        <p className="mt-2 text-neutral-600">
+        <h1 className="text-3xl font-bold font-[family-name:var(--font-display)] text-[var(--ink-1)]">
+          Forgot Password
+        </h1>
+        <p className="mt-2 text-[var(--ink-2)]">
           Enter your email and we&apos;ll send a reset link (demo).
         </p>
 
@@ -30,8 +32,8 @@ export default function ForgotPasswordPage() {
           </Button>
         </form>
 
-        <p className="mt-4 text-center text-sm">
-          <Link href="/login" className="underline">
+        <p className="mt-4 text-center text-sm text-[var(--ink-3)]">
+          <Link href="/login" className="text-[var(--accent-500)] hover:text-[var(--accent-400)]">
             Back to Login
           </Link>
         </p>
@@ -43,7 +45,7 @@ export default function ForgotPasswordPage() {
         title="Reset Link Sent"
         footer={<Button onClick={() => setShowSent(false)}>OK</Button>}
       >
-        <p className="text-sm text-neutral-600">
+        <p className="text-sm text-[var(--ink-2)]">
           If an account exists for that email, a password reset link has been sent.
         </p>
       </Modal>

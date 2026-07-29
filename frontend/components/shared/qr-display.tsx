@@ -23,9 +23,9 @@ export function QRDisplay({ code, size = 160 }: QRDisplayProps) {
   const cellSize = size / cells;
 
   return (
-    <div className="inline-block border border-black p-3">
+    <div className="inline-block rounded-[var(--r-lg)] border border-[var(--border-card)] bg-[var(--bg-card)] p-3 backdrop-blur-xl">
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-        <rect width={size} height={size} fill="white" />
+        <rect width={size} height={size} fill="white" rx="4" />
         {grid.map((row, ri) =>
           row.map((filled, ci) =>
             filled ? (
@@ -35,13 +35,13 @@ export function QRDisplay({ code, size = 160 }: QRDisplayProps) {
                 y={ri * cellSize}
                 width={cellSize}
                 height={cellSize}
-                fill="black"
+                fill="#0F172A"
               />
             ) : null,
           ),
         )}
       </svg>
-      <p className="mt-2 text-center font-mono text-xs">{code}</p>
+      <p className="mt-2 text-center font-mono text-xs text-[var(--ink-3)]">{code}</p>
     </div>
   );
 }

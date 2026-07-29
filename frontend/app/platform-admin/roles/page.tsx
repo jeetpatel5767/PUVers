@@ -57,17 +57,17 @@ export default function PlatformAdminRolesPage() {
             <div className="flex items-start justify-between">
               <div>
                 <CardTitle>{role.name}</CardTitle>
-                <p className="mt-1 text-sm text-neutral-500">{role.description}</p>
+                <p className="mt-1 text-sm text-[var(--ink-2)]">{role.description}</p>
               </div>
               <Button variant="outline" size="sm" onClick={() => setEditRole(role)}>
                 Edit
               </Button>
             </div>
             <div className="mt-4">
-              <p className="text-xs font-medium uppercase text-neutral-400">Permissions</p>
+              <p className="font-[family-name:var(--font-mono)] uppercase tracking-[0.08em] text-[11px] text-[var(--ink-3)]">Permissions</p>
               <div className="mt-2 flex flex-wrap gap-1">
                 {role.permissions.map((p) => (
-                  <span key={p} className="border border-black px-2 py-0.5 text-xs">
+                  <span key={p} className="border border-[var(--border-card)] px-2 py-0.5 text-xs">
                     {p}
                   </span>
                 ))}
@@ -110,7 +110,7 @@ export default function PlatformAdminRolesPage() {
                       type="checkbox"
                       checked={editRole.permissions.includes(perm)}
                       onChange={() => togglePermission(perm)}
-                      className="h-4 w-4 border-black accent-black"
+                      className="h-4 w-4 border-[var(--border-card)] accent-[var(--accent-500)]"
                     />
                     {perm}
                   </label>

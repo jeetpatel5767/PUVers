@@ -12,17 +12,22 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants: Record<Variant, string> = {
-  primary: "bg-black text-white border border-black hover:bg-neutral-800",
-  secondary: "bg-neutral-100 text-black border border-black hover:bg-neutral-200",
-  outline: "bg-white text-black border border-black hover:bg-neutral-50",
-  ghost: "bg-transparent text-black border border-transparent hover:border-black",
-  danger: "bg-white text-black border border-black hover:bg-neutral-100",
+  primary:
+    "bg-[var(--accent-500)] text-white border border-[var(--accent-600)] hover:bg-[var(--accent-400)] hover:shadow-[0_0_20px_var(--accent-glow)]",
+  secondary:
+    "bg-[var(--bg-card)] text-[var(--ink-1)] border border-[var(--border-card-hover)] backdrop-blur-xl hover:bg-[var(--bg-card-hover)]",
+  outline:
+    "bg-transparent text-[var(--ink-1)] border border-[var(--border-card-hover)] hover:bg-[var(--bg-card)] backdrop-blur-sm",
+  ghost:
+    "bg-transparent text-[var(--ink-2)] border border-transparent hover:text-[var(--ink-1)] hover:bg-[var(--bg-card)]",
+  danger:
+    "bg-[var(--danger-bg)] text-[var(--danger)] border border-[rgba(248,113,113,0.3)] hover:bg-[rgba(248,113,113,0.2)]",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "px-3 py-1.5 text-sm",
-  md: "px-4 py-2 text-sm",
-  lg: "px-6 py-3 text-base",
+  sm: "h-8 px-3.5 text-[13px]",
+  md: "h-10 px-[18px] text-sm",
+  lg: "h-12 px-6 text-[15px]",
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -31,7 +36,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ref={ref}
       disabled={disabled}
       className={cn(
-        "inline-flex items-center justify-center gap-2 font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed",
+        "pv-btn inline-flex items-center justify-center gap-2 font-medium rounded-[var(--r-md)] transition-all duration-200 whitespace-nowrap",
+        "disabled:opacity-40 disabled:cursor-not-allowed",
+        "font-[var(--font-ui)] tracking-[-0.01em]",
         variants[variant],
         sizes[size],
         className,

@@ -29,10 +29,10 @@ export default function StudentCertificatesPage() {
         <div className="grid gap-4 sm:grid-cols-2">
           {certificates.map((cert) => (
             <Card key={cert.id}>
-              <div className="border border-black p-6 text-center">
-                <p className="text-xs uppercase tracking-widest">Certificate of Participation</p>
-                <p className="mt-4 text-lg font-bold">{cert.eventTitle}</p>
-                <p className="mt-2 text-sm text-neutral-500">Issued {formatDate(cert.issuedAt)}</p>
+              <div className="border border-[var(--border-card)] p-6 text-center">
+                <p className="text-[11px] uppercase tracking-[0.08em] font-[family-name:var(--font-mono)]">Certificate of Participation</p>
+                <p className="mt-4 text-lg font-bold font-[family-name:var(--font-display)]">{cert.eventTitle}</p>
+                <p className="mt-2 text-sm text-[var(--ink-3)]">Issued {formatDate(cert.issuedAt)}</p>
                 <p className="mt-4 font-serif text-2xl italic">PUVerse</p>
               </div>
               <div className="mt-4 flex gap-2">
@@ -66,13 +66,13 @@ export default function StudentCertificatesPage() {
         }
       >
         {preview && (
-          <div className="border-2 border-black p-8 text-center">
-            <p className="text-sm uppercase tracking-widest">Certificate of Participation</p>
-            <p className="mt-6 text-2xl font-bold">This certifies that</p>
+          <div className="border-2 border-[var(--border-card)] p-8 text-center">
+            <p className="text-[11px] uppercase tracking-[0.08em] font-[family-name:var(--font-mono)]">Certificate of Participation</p>
+            <p className="mt-6 text-2xl font-bold font-[family-name:var(--font-display)]">This certifies that</p>
             <p className="mt-2 text-xl font-semibold">Aarav Sharma</p>
             <p className="mt-4">has successfully participated in</p>
-            <p className="mt-2 text-xl font-bold">{preview.eventTitle}</p>
-            <p className="mt-6 text-sm text-neutral-500">{formatDate(preview.issuedAt)}</p>
+            <p className="mt-2 text-xl font-bold font-[family-name:var(--font-display)]">{preview.eventTitle}</p>
+            <p className="mt-6 text-sm text-[var(--ink-3)]">{formatDate(preview.issuedAt)}</p>
             <div className="mt-8 flex justify-between text-sm">
               <span>Organizer Signature</span>
               <span className="font-serif text-lg">PUVerse</span>
