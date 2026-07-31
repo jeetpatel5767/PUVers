@@ -71,7 +71,17 @@ export default function LandingPage() {
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center gap-7 border border-[hsl(0_0%_78%_/_0.7)] bg-[hsl(0_0%_96%_/_0.55)] backdrop-blur-[24px] rounded-full px-6 py-2 shadow-[0_2px_16px_var(--shadow),inset_0_1px_0_var(--glow)]">
+          <Squircle
+            cornerRadius={16}
+            cornerSmoothing={1}
+            className="hidden md:flex items-center gap-7 border border-[hsl(0_0%_78%_/_0.7)] px-7 py-[10px]"
+            style={{
+              background: "hsl(0 0% 96% / 0.55)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
+              boxShadow: "0 2px 16px var(--shadow), inset 0 1px 0 var(--glow)",
+            }}
+          >
             {["Events", "How it works", "About", "Contact"].map((label) => (
               <span
                 key={label}
@@ -80,7 +90,7 @@ export default function LandingPage() {
                 {label}
               </span>
             ))}
-          </div>
+          </Squircle>
 
           <div className="hidden md:flex items-center gap-4">
             <Link
