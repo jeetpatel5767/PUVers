@@ -1,39 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { PageHeader } from "@/components/shared/page-header";
-import { Button } from "@/components/ui/button";
-import { Card, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
-
-interface ToggleSettingProps {
-  label: string;
-  description: string;
-  enabled: boolean;
-  onToggle: () => void;
-}
-
-function ToggleSetting({ label, description, enabled, onToggle }: ToggleSettingProps) {
-  return (
-    <div className="flex items-center justify-between border-b border-[var(--hairline)] py-3">
-      <div>
-        <p className="text-sm font-medium">{label}</p>
-        <p className="text-xs text-[var(--ink-2)]">{description}</p>
-      </div>
-      <button
-        onClick={onToggle}
-        className={`relative h-6 w-11 border border-[var(--border-card)] transition-colors ${enabled ? "bg-[var(--accent-500)]" : "bg-[var(--bg-card)]"}`}
-      >
-        <span
-          className={`absolute top-0.5 h-4 w-4 border border-[var(--border-card)] transition-transform ${
-            enabled ? "translate-x-5 bg-white" : "translate-x-0.5 bg-[var(--accent-500)]"
-          }`}
-        />
-      </button>
-    </div>
-  );
-}
+import { Squircle } from "@squircle-js/react";
+import {
+  Save,
+  Trash2,
+  Download,
+  CheckCircle2,
+} from "lucide-react";
 
 export default function SuperAdminSettingsPage() {
   const [settings, setSettings] = useState({
@@ -43,99 +17,246 @@ export default function SuperAdminSettingsPage() {
     maintenanceMode: false,
     maxEventsPerOrg: "10",
     defaultCapacity: "100",
+    platformName: "PUVerse",
+    supportEmail: "support@pu.ac.in",
     timezone: "Asia/Kolkata",
   });
+  const [saved, setSaved] = useState(false);
 
-  const toggle = (key: keyof typeof settings) =>
-    setSettings((s) => ({ ...s, [key]: !s[key] }));
+  const toggle = (key: string) =>
+    setSettings((s) => ({ ...s, [key]: !s[key as keyof typeof s] }));
+
+  const glassStyle = {
+    background: "hsl(0 0% 96% / 0.42)",
+    backdropFilter: "blur(24px) saturate(1.4)",
+    WebkitBackdropFilter: "blur(24px) saturate(1.4)",
+    boxShadow: "0 2px 20px var(--shadow), inset 0 1px 0 hsl(0 0% 100% / 0.6)",
+  };
+
+  const inputStyle = {
+    borderRadius: "12px",
+    background: "hsl(0 0% 100% / 0.5)",
+    border: "1px solid hsl(0 0% 85% / 0.4)",
+  };
+
+  const handleSave = () => {
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
+
+  function Toggle({ enabled, onToggle }: { enabled: boolean; onToggle: () => void }) {
+    return (
+      <button
+        onClick={onToggle}
+        className="relative w-10 h-[22px] flex-shrink-0 transition-colors duration-200 cursor-pointer"
+        style={{
+          borderRadius: "11px",
+          background: enabled ? "var(--col-primary)" : "hsl(0 0% 82%)",
+        }}
+      >
+        <div
+          className="absolute top-[3px] w-4 h-4 rounded-full bg-white transition-transform duration-200 shadow-sm"
+          style={{ left: enabled ? "20px" : "3px" }}
+        />
+      </button>
+    );
+  }
 
   return (
     <div>
-      <PageHeader title="Platform Settings" description="Configure platform behavior and defaults." />
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-[clamp(1.4rem,2.5vw,1.8rem)] font-bold tracking-[-0.03em] leading-[1.1] text-[var(--col-primary)] font-[family-name:var(--font-display)]">
+          Settings
+          <span className="text-[var(--accent)] font-[family-name:var(--font-cursive)] font-normal text-[0.7em]"> .</span>
+        </h1>
+        <p className="mt-2 text-[0.84rem] text-[var(--col-secondary)] font-[family-name:var(--font-ui)]">
+          Configure platform behavior and defaults.
+        </p>
+      </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
-          <CardTitle>Event Settings</CardTitle>
-          <div className="mt-4">
-            <ToggleSetting
-              label="Require Event Approval"
-              description="All new events must be approved by a super admin before publishing."
-              enabled={settings.requireApproval as boolean}
-              onToggle={() => toggle("requireApproval")}
-            />
-            <ToggleSetting
-              label="Allow Self-Registration"
-              description="Students can register for events without approval."
-              enabled={settings.allowSelfRegistration as boolean}
-              onToggle={() => toggle("allowSelfRegistration")}
-            />
-            <div className="mt-4 space-y-4">
-              <Input
-                label="Max Events Per Organization"
-                type="number"
-                value={settings.maxEventsPerOrg}
-                onChange={(e) => setSettings((s) => ({ ...s, maxEventsPerOrg: e.target.value }))}
-              />
-              <Input
-                label="Default Event Capacity"
-                type="number"
-                value={settings.defaultCapacity}
-                onChange={(e) => setSettings((s) => ({ ...s, defaultCapacity: e.target.value }))}
-              />
+        {/* Event Settings */}
+        <Squircle cornerRadius={24} cornerSmoothing={1} className="p-6" style={glassStyle}>
+          <h2 className="text-[0.72rem] uppercase tracking-[0.16em] text-[var(--col-dim)] font-[family-name:var(--font-mono)] mb-5">
+            Event Settings
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between py-2" style={{ borderBottom: "1px solid hsl(0 0% 88% / 0.3)" }}>
+              <div>
+                <p className="text-[0.82rem] font-medium text-[var(--col-primary)] font-[family-name:var(--font-display)]">Require Event Approval</p>
+                <p className="text-[0.7rem] text-[var(--col-dim)] font-[family-name:var(--font-ui)] mt-0.5">Events must be approved before publishing.</p>
+              </div>
+              <Toggle enabled={settings.requireApproval as boolean} onToggle={() => toggle("requireApproval")} />
+            </div>
+            <div className="flex items-center justify-between py-2" style={{ borderBottom: "1px solid hsl(0 0% 88% / 0.3)" }}>
+              <div>
+                <p className="text-[0.82rem] font-medium text-[var(--col-primary)] font-[family-name:var(--font-display)]">Allow Self-Registration</p>
+                <p className="text-[0.7rem] text-[var(--col-dim)] font-[family-name:var(--font-ui)] mt-0.5">Students can register without approval.</p>
+              </div>
+              <Toggle enabled={settings.allowSelfRegistration as boolean} onToggle={() => toggle("allowSelfRegistration")} />
+            </div>
+            <div className="pt-2 space-y-3">
+              <div>
+                <label className="text-[0.64rem] uppercase tracking-[0.14em] text-[var(--col-dim)] font-[family-name:var(--font-mono)] mb-1.5 block">
+                  Max Events Per Organization
+                </label>
+                <input
+                  type="number"
+                  value={settings.maxEventsPerOrg}
+                  onChange={(e) => setSettings((s) => ({ ...s, maxEventsPerOrg: e.target.value }))}
+                  className="w-full px-4 py-[10px] text-[0.82rem] font-[family-name:var(--font-ui)] text-[var(--col-primary)] outline-none"
+                  style={inputStyle}
+                />
+              </div>
+              <div>
+                <label className="text-[0.64rem] uppercase tracking-[0.14em] text-[var(--col-dim)] font-[family-name:var(--font-mono)] mb-1.5 block">
+                  Default Event Capacity
+                </label>
+                <input
+                  type="number"
+                  value={settings.defaultCapacity}
+                  onChange={(e) => setSettings((s) => ({ ...s, defaultCapacity: e.target.value }))}
+                  className="w-full px-4 py-[10px] text-[0.82rem] font-[family-name:var(--font-ui)] text-[var(--col-primary)] outline-none"
+                  style={inputStyle}
+                />
+              </div>
             </div>
           </div>
-        </Card>
+        </Squircle>
 
-        <Card>
-          <CardTitle>Notification Settings</CardTitle>
-          <div className="mt-4">
-            <ToggleSetting
-              label="Email Notifications"
-              description="Send email notifications for event updates and registrations."
-              enabled={settings.emailNotifications as boolean}
-              onToggle={() => toggle("emailNotifications")}
-            />
-            <ToggleSetting
-              label="Maintenance Mode"
-              description="Show maintenance page to all users except super admins."
-              enabled={settings.maintenanceMode as boolean}
-              onToggle={() => toggle("maintenanceMode")}
-            />
+        {/* Notification Settings */}
+        <Squircle cornerRadius={24} cornerSmoothing={1} className="p-6" style={glassStyle}>
+          <h2 className="text-[0.72rem] uppercase tracking-[0.16em] text-[var(--col-dim)] font-[family-name:var(--font-mono)] mb-5">
+            Notification Settings
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between py-2" style={{ borderBottom: "1px solid hsl(0 0% 88% / 0.3)" }}>
+              <div>
+                <p className="text-[0.82rem] font-medium text-[var(--col-primary)] font-[family-name:var(--font-display)]">Email Notifications</p>
+                <p className="text-[0.7rem] text-[var(--col-dim)] font-[family-name:var(--font-ui)] mt-0.5">Send email for event updates and registrations.</p>
+              </div>
+              <Toggle enabled={settings.emailNotifications as boolean} onToggle={() => toggle("emailNotifications")} />
+            </div>
+            <div className="flex items-center justify-between py-2" style={{ borderBottom: "1px solid hsl(0 0% 88% / 0.3)" }}>
+              <div>
+                <p className="text-[0.82rem] font-medium text-[var(--col-primary)] font-[family-name:var(--font-display)]">Maintenance Mode</p>
+                <p className="text-[0.7rem] text-[var(--col-dim)] font-[family-name:var(--font-ui)] mt-0.5">Show maintenance page to all non-super-admin users.</p>
+              </div>
+              <Toggle enabled={settings.maintenanceMode as boolean} onToggle={() => toggle("maintenanceMode")} />
+            </div>
           </div>
-        </Card>
+        </Squircle>
 
-        <Card>
-          <CardTitle>General</CardTitle>
-          <div className="mt-4 space-y-4">
-            <Input label="Platform Name" defaultValue="PUVerse" />
-            <Input label="Support Email" defaultValue="support@pu.ac.in" />
-            <Select
-              label="Timezone"
-              defaultValue={settings.timezone}
-              options={[
-                { value: "Asia/Kolkata", label: "Asia/Kolkata (IST)" },
-                { value: "UTC", label: "UTC" },
-                { value: "America/New_York", label: "America/New_York (EST)" },
-              ]}
-            />
+        {/* General */}
+        <Squircle cornerRadius={24} cornerSmoothing={1} className="p-6" style={glassStyle}>
+          <h2 className="text-[0.72rem] uppercase tracking-[0.16em] text-[var(--col-dim)] font-[family-name:var(--font-mono)] mb-5">
+            General
+          </h2>
+          <div className="space-y-3">
+            <div>
+              <label className="text-[0.64rem] uppercase tracking-[0.14em] text-[var(--col-dim)] font-[family-name:var(--font-mono)] mb-1.5 block">
+                Platform Name
+              </label>
+              <input
+                type="text"
+                value={settings.platformName}
+                onChange={(e) => setSettings((s) => ({ ...s, platformName: e.target.value }))}
+                className="w-full px-4 py-[10px] text-[0.82rem] font-[family-name:var(--font-ui)] text-[var(--col-primary)] outline-none"
+                style={inputStyle}
+              />
+            </div>
+            <div>
+              <label className="text-[0.64rem] uppercase tracking-[0.14em] text-[var(--col-dim)] font-[family-name:var(--font-mono)] mb-1.5 block">
+                Support Email
+              </label>
+              <input
+                type="email"
+                value={settings.supportEmail}
+                onChange={(e) => setSettings((s) => ({ ...s, supportEmail: e.target.value }))}
+                className="w-full px-4 py-[10px] text-[0.82rem] font-[family-name:var(--font-ui)] text-[var(--col-primary)] outline-none"
+                style={inputStyle}
+              />
+            </div>
+            <div>
+              <label className="text-[0.64rem] uppercase tracking-[0.14em] text-[var(--col-dim)] font-[family-name:var(--font-mono)] mb-1.5 block">
+                Timezone
+              </label>
+              <select
+                value={settings.timezone}
+                onChange={(e) => setSettings((s) => ({ ...s, timezone: e.target.value }))}
+                className="w-full px-4 py-[10px] text-[0.82rem] font-[family-name:var(--font-ui)] text-[var(--col-primary)] outline-none appearance-none cursor-pointer"
+                style={inputStyle}
+              >
+                <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
+                <option value="UTC">UTC</option>
+                <option value="America/New_York">America/New_York (EST)</option>
+              </select>
+            </div>
           </div>
-        </Card>
+        </Squircle>
 
-        <Card>
-          <CardTitle>Actions</CardTitle>
-          <div className="mt-4 space-y-3">
-            <Button className="w-full" onClick={() => alert("Settings saved (demo)")}>
+        {/* Actions */}
+        <Squircle cornerRadius={24} cornerSmoothing={1} className="p-6" style={glassStyle}>
+          <h2 className="text-[0.72rem] uppercase tracking-[0.16em] text-[var(--col-dim)] font-[family-name:var(--font-mono)] mb-5">
+            Actions
+          </h2>
+          <div className="space-y-3">
+            <button
+              onClick={handleSave}
+              className="w-full inline-flex items-center justify-center gap-2 py-[11px] text-[0.8rem] font-medium text-white transition-all duration-300 hover:opacity-85 cursor-pointer font-[family-name:var(--font-display)]"
+              style={{
+                borderRadius: "14px",
+                background: "var(--col-primary)",
+                boxShadow: "0 2px 12px hsl(0 0% 10% / 0.2)",
+              }}
+            >
+              <Save className="w-[13px] h-[13px]" strokeWidth={1.5} />
               Save All Settings
-            </Button>
-            <Button variant="outline" className="w-full" onClick={() => alert("Cache cleared (demo)")}>
+            </button>
+            <button
+              onClick={() => alert("Cache cleared (demo)")}
+              className="w-full inline-flex items-center justify-center gap-2 py-[11px] text-[0.8rem] font-medium text-[var(--col-secondary)] transition-all duration-300 hover:bg-[hsl(0_0%_92%)] cursor-pointer font-[family-name:var(--font-display)]"
+              style={{
+                borderRadius: "14px",
+                background: "hsl(0 0% 100% / 0.5)",
+                border: "1px solid hsl(0 0% 85% / 0.4)",
+              }}
+            >
+              <Trash2 className="w-[13px] h-[13px]" strokeWidth={1.5} />
               Clear Platform Cache
-            </Button>
-            <Button variant="outline" className="w-full" onClick={() => alert("Export started (demo)")}>
+            </button>
+            <button
+              onClick={() => alert("Export started (demo)")}
+              className="w-full inline-flex items-center justify-center gap-2 py-[11px] text-[0.8rem] font-medium text-[var(--col-secondary)] transition-all duration-300 hover:bg-[hsl(0_0%_92%)] cursor-pointer font-[family-name:var(--font-display)]"
+              style={{
+                borderRadius: "14px",
+                background: "hsl(0 0% 100% / 0.5)",
+                border: "1px solid hsl(0 0% 85% / 0.4)",
+              }}
+            >
+              <Download className="w-[13px] h-[13px]" strokeWidth={1.5} />
               Export Platform Data
-            </Button>
+            </button>
           </div>
-        </Card>
+        </Squircle>
       </div>
+
+      {/* Saved toast */}
+      {saved && (
+        <div
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3.5 animate-scale-in"
+          style={{
+            borderRadius: "14px",
+            background: "hsl(142 50% 40%)",
+            color: "white",
+            boxShadow: "0 4px 20px hsl(142 50% 30% / 0.3)",
+          }}
+        >
+          <CheckCircle2 className="w-[15px] h-[15px]" strokeWidth={1.5} />
+          <span className="text-[0.8rem] font-medium font-[family-name:var(--font-display)]">Settings saved successfully</span>
+        </div>
+      )}
     </div>
   );
 }
