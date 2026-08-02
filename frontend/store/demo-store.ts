@@ -175,7 +175,6 @@ export const useDemoStore = create<DemoState>()(
         isAuthenticated: state.isAuthenticated,
         registrations: state.registrations,
         tickets: state.tickets,
-        events: state.events,
         notifications: state.notifications,
       }),
     },

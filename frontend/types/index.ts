@@ -28,6 +28,25 @@ export interface Organization {
   status: "active" | "inactive";
 }
 
+export interface EventTimelineItem {
+  day: string;
+  time: string;
+  title: string;
+  description: string;
+}
+
+export interface EventSpeaker {
+  name: string;
+  role: string;
+  org: string;
+}
+
+export interface EventOrganizer {
+  name: string;
+  role: string;
+  email: string;
+}
+
 export interface Event {
   id: string;
   title: string;
@@ -42,6 +61,14 @@ export interface Event {
   category: string;
   organizer: string;
   requiresApproval: boolean;
+  thumbnail?: string;
+  aboutEvent?: string;
+  teamSize?: string;
+  timeline?: EventTimelineItem[];
+  speakers?: EventSpeaker[];
+  galleryCount?: number;
+  hasCertificate?: boolean;
+  organizers?: EventOrganizer[];
 }
 
 export interface Registration {

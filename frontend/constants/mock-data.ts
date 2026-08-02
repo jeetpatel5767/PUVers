@@ -60,6 +60,26 @@ export const EVENTS: Event[] = [
     category: "Conference",
     organizer: "Priya Mehta",
     requiresApproval: false,
+    aboutEvent:
+      "The Annual Tech Symposium is PU's most anticipated tech event bringing together industry leaders, researchers, and students under one roof. This year's theme — \"Building Tomorrow\" — explores the intersection of emerging technology and sustainable innovation. Expect deep-dive sessions on cloud-native architectures, generative AI, and quantum computing fundamentals.",
+    timeline: [
+      { day: "Day 1", time: "09:00 AM", title: "Opening Ceremony & Keynote", description: "Welcome address by the Dean followed by a keynote on the future of AI in education." },
+      { day: "Day 1", time: "11:00 AM", title: "Workshop: Cloud-Native Development", description: "Hands-on session building micro-services with Kubernetes and Docker." },
+      { day: "Day 1", time: "02:00 PM", title: "Panel Discussion", description: "Industry leaders discuss career paths in emerging tech fields." },
+      { day: "Day 1", time: "04:30 PM", title: "Networking & Closing", description: "Open networking session with refreshments and certificate distribution." },
+    ],
+    speakers: [
+      { name: "Dr. Ananya Krishnan", role: "Chief Guest", org: "Google DeepMind" },
+      { name: "Rajiv Bansal", role: "Speaker", org: "Microsoft Research" },
+      { name: "Sneha Iyer", role: "Speaker", org: "Razorpay Engineering" },
+    ],
+    galleryCount: 24,
+    hasCertificate: true,
+    organizers: [
+      { name: "Priya Mehta", role: "President, Tech Fest Committee", email: "priya@pu.ac.in" },
+      { name: "Vikram Joshi", role: "Event Coordinator", email: "vikram@pu.ac.in" },
+      { name: "Ananya Das", role: "Logistics Head", email: "ananya@pu.ac.in" },
+    ],
   },
   {
     id: "evt-2",
@@ -92,6 +112,22 @@ export const EVENTS: Event[] = [
     category: "Competition",
     organizer: "Priya Mehta",
     requiresApproval: false,
+    teamSize: "2–4 members",
+    aboutEvent:
+      "The Inter-College Hackathon is a 48-hour coding marathon where student teams build innovative solutions around real-world problem statements. Mentors from partner companies guide teams through ideation, prototyping, and presentation. Top three teams receive cash prizes and internship offers.",
+    timeline: [
+      { day: "Day 1", time: "08:00 AM", title: "Check-in & Team Registration", description: "Verify teams, collect IDs, assign workstations." },
+      { day: "Day 1", time: "10:00 AM", title: "Problem Statements Released", description: "Three tracks revealed: AI, Sustainability, Fintech." },
+      { day: "Day 2", time: "10:00 AM", title: "Mentor Check-in Round", description: "Each team gets 15 minutes with an assigned mentor." },
+      { day: "Day 3", time: "02:00 PM", title: "Final Pitches & Judging", description: "5-minute demo per team followed by Q&A with judges." },
+      { day: "Day 3", time: "06:00 PM", title: "Awards Ceremony", description: "Winners announced, prizes distributed, group photo." },
+    ],
+    galleryCount: 18,
+    hasCertificate: true,
+    organizers: [
+      { name: "Arjun Nair", role: "Lead Organizer, Innovation Cell", email: "arjun@pu.ac.in" },
+      { name: "Meera Kapoor", role: "Sponsorship Head", email: "meera@pu.ac.in" },
+    ],
   },
   {
     id: "evt-4",
