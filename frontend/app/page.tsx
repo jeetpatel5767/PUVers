@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { Squircle } from "@squircle-js/react";
 import { EVENTS } from "@/constants/mock-data";
 
-const liveEvents = EVENTS.filter((e) => e.status === "published");
+const liveEvents = EVENTS.filter((e) => e.status === "published" || e.status === "PUBLISHED");
 const INTERVAL = 5000;
 const LETTER_STAGGER = 30;
 

@@ -195,7 +195,7 @@ export default function PlatformAdminUsersPage() {
                 <input type="text" placeholder="e.g. CSE" className="w-full px-4 py-[10px] text-[0.82rem] font-[family-name:var(--font-ui)] text-[var(--col-primary)] placeholder:text-[var(--col-dim)] outline-none" style={inputStyle} /></div>
             </div>
             <div className="flex items-center gap-3 mt-6">
-              <button onClick={() => { setUsers([...users, { id: `u-${Date.now()}`, name: "New User", email: "newuser@pu.ac.in", role: "student", department: "CSE" }]); setShowAdd(false); flash("User added"); }}
+              <button onClick={() => { setUsers([...users, { id: `u-${Date.now()}`, universityId: `PU${Date.now().toString().slice(-6)}`, firstName: "New", lastName: "User", name: "New User", email: "newuser@pu.ac.in", role: "student", department: "CSE" }]); setShowAdd(false); flash("User added"); }}
                 className="flex-1 py-[11px] text-[0.8rem] font-medium text-white transition-all hover:opacity-85 cursor-pointer font-[family-name:var(--font-display)] text-center"
                 style={{ borderRadius: "14px", background: "var(--col-primary)", boxShadow: "0 2px 12px hsl(0 0% 10% / 0.2)" }}>Add</button>
               <button onClick={() => setShowAdd(false)} className="flex-1 text-center text-[0.8rem] font-medium py-[11px] hover:bg-[hsl(0_0%_92%)] font-[family-name:var(--font-display)] cursor-pointer text-[var(--col-secondary)]"

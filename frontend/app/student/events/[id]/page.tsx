@@ -16,6 +16,9 @@ import {
   Image,
   Award,
   Ticket,
+  ExternalLink,
+  Building,
+  CheckCircle2,
 } from "lucide-react";
 
 export default function StudentEventDetailPage() {
@@ -26,6 +29,7 @@ export default function StudentEventDetailPage() {
   const registerForEvent = useDemoStore((s) => s.registerForEvent);
   const [showConfirm, setShowConfirm] = useState(false);
   const [registered, setRegistered] = useState(false);
+  const [formAnswers, setFormAnswers] = useState<Record<string, string>>({});
 
   const event = events.find((e) => e.id === id);
   const existingReg = registrations.find(
@@ -93,35 +97,48 @@ export default function StudentEventDetailPage() {
         Back to events
       </Link>
 
-      {/* ── THUMBNAIL PLACEHOLDER ── */}
+      {/* ── THUMBNAIL / BANNER ── */}
       <Squircle
         cornerRadius={28}
         cornerSmoothing={1}
-        className="w-full h-[260px] mb-6 flex items-center justify-center"
+        className="w-full h-[260px] mb-6 flex items-center justify-center relative overflow-hidden"
         style={{
-          background:
-            "linear-gradient(135deg, hsl(0 0% 88%) 0%, hsl(0 0% 82%) 100%)",
+          background: event.bannerUrl
+            ? `url(${event.bannerUrl}) center/cover no-repeat`
+            : "linear-gradient(135deg, hsl(0 0% 88%) 0%, hsl(0 0% 82%) 100%)",
         }}
       >
-        <div className="flex flex-col items-center gap-2 opacity-40">
-          <Image className="w-10 h-10 text-[var(--col-secondary)]" strokeWidth={1} />
-          <p className="text-[0.72rem] text-[var(--col-secondary)] font-[family-name:var(--font-ui)]">
-            Event cover photo
-          </p>
-        </div>
+        {!event.bannerUrl && (
+          <div className="flex flex-col items-center gap-2 opacity-40">
+            <Image className="w-10 h-10 text-[var(--col-secondary)]" strokeWidth={1} />
+            <p className="text-[0.72rem] text-[var(--col-secondary)] font-[family-name:var(--font-ui)]">
+              Event Banner Image
+            </p>
+          </div>
+        )}
       </Squircle>
 
       {/* ── HEADER — badges + title ── */}
       <div className="mb-6">
-        <div className="flex items-center gap-3 mb-3">
+        <div className="flex flex-wrap items-center gap-3 mb-3">
           <Squircle
             cornerRadius={8}
             cornerSmoothing={1}
             className="px-2.5 py-1 text-[0.58rem] uppercase tracking-[0.1em] font-medium font-[family-name:var(--font-mono)] text-[var(--accent)]"
             style={{ background: "hsl(25 65% 45% / 0.1)" }}
           >
-            {event.category}
+            {event.category || event.eventCategory}
           </Squircle>
+          {event.eventMode && (
+            <Squircle
+              cornerRadius={8}
+              cornerSmoothing={1}
+              className="px-2.5 py-1 text-[0.58rem] uppercase tracking-[0.1em] font-medium font-[family-name:var(--font-mono)] text-[var(--col-primary)]"
+              style={{ background: "hsl(0 0% 90% / 0.6)" }}
+            >
+              Mode: {event.eventMode}
+            </Squircle>
+          )}
           {event.requiresApproval && (
             <Squircle
               cornerRadius={8}
@@ -140,7 +157,7 @@ export default function StudentEventDetailPage() {
           </span>
         </h1>
         <p className="mt-3 text-[0.86rem] text-[var(--col-secondary)] leading-[1.7] max-w-[640px] font-[family-name:var(--font-ui)]">
-          {event.description}
+          {event.about || event.description}
         </p>
       </div>
 
@@ -252,11 +269,11 @@ export default function StudentEventDetailPage() {
             </section>
           )}
 
-          {/* ── EVENT TIMELINE ── */}
-          {event.timeline && event.timeline.length > 0 && (
+          {/* ── AGENDA / TIMELINE (Screen 08 & 18) ── */}
+          {((event.agenda && event.agenda.length > 0) || (event.timeline && event.timeline.length > 0)) && (
             <section>
               <h2 className="text-[0.72rem] uppercase tracking-[0.16em] text-[var(--col-dim)] font-[family-name:var(--font-mono)] mb-4">
-                Event Timeline
+                Event Agenda
               </h2>
               <Squircle
                 cornerRadius={22}
@@ -265,8 +282,11 @@ export default function StudentEventDetailPage() {
                 style={glassStyle}
               >
                 <div className="space-y-0">
-                  {event.timeline.map((item, i) => (
-                    <div key={i} className="flex gap-4">
+                  {(event.agenda && event.agenda.length > 0
+                    ? event.agenda
+                    : event.timeline?.map(t => ({ id: t.title, time: t.time, session: t.title, description: t.description }))
+                  )?.map((item: any, i: number, arr: any[]) => (
+                    <div key={item.id || i} className="flex gap-4">
                       {/* Vertical line + dot */}
                       <div className="flex flex-col items-center w-5 flex-shrink-0">
                         <div
@@ -278,7 +298,7 @@ export default function StudentEventDetailPage() {
                               i === 0 ? "var(--accent)" : "transparent",
                           }}
                         />
-                        {i < event.timeline!.length - 1 && (
+                        {i < arr.length - 1 && (
                           <div className="w-[1.5px] flex-1 bg-[var(--line-soft)]" />
                         )}
                       </div>
@@ -286,18 +306,17 @@ export default function StudentEventDetailPage() {
                       <div className="pb-6 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
                           <span className="text-[0.62rem] uppercase tracking-[0.12em] text-[var(--accent)] font-medium font-[family-name:var(--font-mono)]">
-                            {item.day}
-                          </span>
-                          <span className="text-[0.62rem] text-[var(--col-dim)] font-[family-name:var(--font-mono)]">
                             {item.time}
                           </span>
                         </div>
                         <p className="text-[0.84rem] font-semibold text-[var(--col-primary)] font-[family-name:var(--font-display)]">
-                          {item.title}
+                          {item.session || item.title}
                         </p>
-                        <p className="text-[0.78rem] text-[var(--col-secondary)] leading-[1.6] font-[family-name:var(--font-ui)] mt-1">
-                          {item.description}
-                        </p>
+                        {item.description && (
+                          <p className="text-[0.78rem] text-[var(--col-secondary)] leading-[1.6] font-[family-name:var(--font-ui)] mt-1">
+                            {item.description}
+                          </p>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -306,7 +325,7 @@ export default function StudentEventDetailPage() {
             </section>
           )}
 
-          {/* ── SPEAKERS / CHIEF GUEST — conditional ── */}
+          {/* ── SPEAKERS & GUESTS (Screen 09 & 18) ── */}
           {event.speakers && event.speakers.length > 0 && (
             <section>
               <h2 className="text-[0.72rem] uppercase tracking-[0.16em] text-[var(--col-dim)] font-[family-name:var(--font-mono)] mb-4">
@@ -315,52 +334,150 @@ export default function StudentEventDetailPage() {
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {event.speakers.map((speaker, i) => (
                   <Squircle
-                    key={i}
+                    key={speaker.id || i}
                     cornerRadius={22}
                     cornerSmoothing={1}
-                    className="p-5"
+                    className="p-5 flex flex-col justify-between"
                     style={glassStyle}
                   >
-                    <Squircle
-                      cornerRadius={14}
-                      cornerSmoothing={1}
-                      className="w-12 h-12 flex items-center justify-center text-white text-[0.62rem] font-bold font-[family-name:var(--font-display)] mb-3"
-                      style={{
-                        background:
-                          speaker.role === "Chief Guest"
-                            ? "linear-gradient(135deg, var(--accent), var(--accent-dark))"
-                            : "linear-gradient(135deg, var(--col-primary), hsl(0 0% 30%))",
-                      }}
-                    >
-                      {speaker.name
-                        .split(" ")
-                        .map((w) => w[0])
-                        .join("")
-                        .slice(0, 2)}
-                    </Squircle>
-                    <p className="text-[0.84rem] font-semibold text-[var(--col-primary)] font-[family-name:var(--font-display)]">
-                      {speaker.name}
-                    </p>
-                    <Squircle
-                      cornerRadius={6}
-                      cornerSmoothing={1}
-                      className="inline-block px-2 py-0.5 text-[0.56rem] uppercase tracking-[0.1em] font-medium font-[family-name:var(--font-mono)] mt-1.5 mb-1"
-                      style={{
-                        background:
-                          speaker.role === "Chief Guest"
-                            ? "hsl(25 65% 45% / 0.1)"
-                            : "hsl(0 0% 90% / 0.5)",
-                        color:
-                          speaker.role === "Chief Guest"
-                            ? "var(--accent)"
-                            : "var(--col-dim)",
-                      }}
-                    >
-                      {speaker.role}
-                    </Squircle>
-                    <p className="text-[0.74rem] text-[var(--col-secondary)] font-[family-name:var(--font-ui)]">
-                      {speaker.org}
-                    </p>
+                    <div>
+                      <div className="flex items-start justify-between gap-2 mb-3">
+                        <Squircle
+                          cornerRadius={14}
+                          cornerSmoothing={1}
+                          className="w-12 h-12 flex items-center justify-center text-white text-[0.62rem] font-bold font-[family-name:var(--font-display)] overflow-hidden"
+                          style={{
+                            background:
+                              speaker.role === "Chief Guest"
+                                ? "linear-gradient(135deg, var(--accent), var(--accent-dark))"
+                                : "linear-gradient(135deg, var(--col-primary), hsl(0 0% 30%))",
+                          }}
+                        >
+                          {speaker.photoUrl ? (
+                            <img src={speaker.photoUrl} alt={speaker.name} className="w-full h-full object-cover" />
+                          ) : (
+                            speaker.name
+                              .split(" ")
+                              .map((w) => w[0])
+                              .join("")
+                              .slice(0, 2)
+                          )}
+                        </Squircle>
+                        {speaker.linkedinUrl && (
+                          <a
+                            href={speaker.linkedinUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="p-1 text-[var(--col-dim)] hover:text-[var(--accent)] transition-colors"
+                            title="LinkedIn Profile"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                          </a>
+                        )}
+                      </div>
+                      <p className="text-[0.84rem] font-semibold text-[var(--col-primary)] font-[family-name:var(--font-display)]">
+                        {speaker.name}
+                      </p>
+                      {(speaker.designation || speaker.role) && (
+                        <Squircle
+                          cornerRadius={6}
+                          cornerSmoothing={1}
+                          className="inline-block px-2 py-0.5 text-[0.56rem] uppercase tracking-[0.1em] font-medium font-[family-name:var(--font-mono)] mt-1.5 mb-1"
+                          style={{
+                            background:
+                              speaker.role === "Chief Guest"
+                                ? "hsl(25 65% 45% / 0.1)"
+                                : "hsl(0 0% 90% / 0.5)",
+                            color:
+                              speaker.role === "Chief Guest"
+                                ? "var(--accent)"
+                                : "var(--col-dim)",
+                          }}
+                        >
+                          {speaker.designation || speaker.role}
+                        </Squircle>
+                      )}
+                      {(speaker.organization || speaker.org) && (
+                        <p className="text-[0.74rem] text-[var(--col-secondary)] font-[family-name:var(--font-ui)]">
+                          {speaker.organization || speaker.org}
+                        </p>
+                      )}
+                      {speaker.bio && (
+                        <p className="text-[0.7rem] text-[var(--col-dim)] font-[family-name:var(--font-ui)] mt-2 line-clamp-3">
+                          {speaker.bio}
+                        </p>
+                      )}
+                    </div>
+                  </Squircle>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ── SPONSORS (Screen 10 & 18) ── */}
+          {event.sponsors && event.sponsors.length > 0 && (
+            <section>
+              <h2 className="text-[0.72rem] uppercase tracking-[0.16em] text-[var(--col-dim)] font-[family-name:var(--font-mono)] mb-4">
+                Partners & Sponsors
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {event.sponsors.map((sponsor, i) => (
+                  <Squircle
+                    key={sponsor.id || i}
+                    cornerRadius={22}
+                    cornerSmoothing={1}
+                    className="p-5 flex flex-col justify-between"
+                    style={glassStyle}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <Squircle
+                          cornerRadius={12}
+                          cornerSmoothing={1}
+                          className="w-10 h-10 flex items-center justify-center font-bold text-white text-[0.65rem] font-[family-name:var(--font-display)]"
+                          style={{
+                            background:
+                              sponsor.sponsorshipLevel === "Title" || sponsor.sponsorshipLevel === "Platinum"
+                                ? "linear-gradient(135deg, var(--accent), var(--accent-dark))"
+                                : "linear-gradient(135deg, var(--col-primary), hsl(0 0% 30%))",
+                          }}
+                        >
+                          {sponsor.logoUrl ? (
+                            <img src={sponsor.logoUrl} alt={sponsor.name} className="w-full h-full object-cover rounded-[12px]" />
+                          ) : (
+                            sponsor.name.slice(0, 2).toUpperCase()
+                          )}
+                        </Squircle>
+                        {sponsor.sponsorshipLevel && (
+                          <Squircle
+                            cornerRadius={6}
+                            cornerSmoothing={1}
+                            className="px-2 py-0.5 text-[0.55rem] uppercase font-semibold font-[family-name:var(--font-mono)] text-[var(--accent)]"
+                            style={{ background: "hsl(25 65% 45% / 0.1)" }}
+                          >
+                            {sponsor.sponsorshipLevel}
+                          </Squircle>
+                        )}
+                      </div>
+                      <p className="text-[0.84rem] font-semibold text-[var(--col-primary)] font-[family-name:var(--font-display)]">
+                        {sponsor.name}
+                      </p>
+                      {sponsor.description && (
+                        <p className="text-[0.72rem] text-[var(--col-secondary)] leading-[1.5] font-[family-name:var(--font-ui)] mt-1 line-clamp-2">
+                          {sponsor.description}
+                        </p>
+                      )}
+                    </div>
+                    {sponsor.websiteUrl && (
+                      <a
+                        href={sponsor.websiteUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 text-[0.7rem] text-[var(--accent)] hover:underline mt-3 font-[family-name:var(--font-ui)]"
+                      >
+                        Visit Website <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
                   </Squircle>
                 ))}
               </div>
@@ -644,7 +761,7 @@ export default function StudentEventDetailPage() {
                   </Link>
                 </Squircle>
               </div>
-            ) : event.status === "published" ? (
+            ) : (event.status === "published" || event.status === "PUBLISHED" || !event.status) ? (
               <Squircle
                 cornerRadius={16}
                 cornerSmoothing={1}
@@ -694,18 +811,18 @@ export default function StudentEventDetailPage() {
                     "linear-gradient(135deg, var(--col-primary), hsl(0 0% 30%))",
                 }}
               >
-                {event.organization
+                {(event.organization || event.organizer || "PU")
                   .split(" ")
-                  .map((w) => w[0])
+                  .map((w: string) => w[0])
                   .join("")
                   .slice(0, 2)}
               </Squircle>
               <div className="flex-1 min-w-0">
                 <p className="text-[0.82rem] font-semibold text-[var(--col-primary)] font-[family-name:var(--font-display)]">
-                  {event.organization}
+                  {event.organization || "PUVerse Event"}
                 </p>
                 <p className="text-[0.68rem] text-[var(--col-secondary)] font-[family-name:var(--font-ui)]">
-                  Organized by {event.organizer}
+                  Organized by {event.organizer || "Event Organizer"}
                 </p>
               </div>
             </div>
@@ -713,38 +830,103 @@ export default function StudentEventDetailPage() {
         </div>
       </div>
 
-      {/* ── CONFIRM MODAL ── */}
+      {/* ── REGISTRATION FORM MODAL (Screen 11 & Screen 18) ── */}
       {showConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
           <div
-            className="absolute inset-0 bg-[hsl(0_0%_10%_/_0.4)] backdrop-blur-sm animate-fade-in"
+            className="fixed inset-0 bg-[hsl(0_0%_10%_/_0.5)] backdrop-blur-sm animate-fade-in"
             onClick={() => setShowConfirm(false)}
           />
           <Squircle
             cornerRadius={24}
             cornerSmoothing={1}
-            className="relative z-10 w-full max-w-sm p-7 animate-scale-in"
+            className="relative z-10 w-full max-w-lg max-h-[90vh] flex flex-col p-6 sm:p-7 animate-scale-in my-auto overflow-hidden"
             style={{
-              background: "hsl(0 0% 96% / 0.9)",
+              background: "hsl(0 0% 98% / 0.95)",
               backdropFilter: "blur(30px)",
               WebkitBackdropFilter: "blur(30px)",
               boxShadow:
-                "0 8px 40px var(--shadow-lg), inset 0 1px 0 hsl(0 0% 100% / 0.6)",
+                "0 8px 40px var(--shadow-lg), inset 0 1px 0 hsl(0 0% 100% / 0.8)",
             }}
           >
-            <h3 className="text-[1rem] font-semibold text-[var(--col-primary)] font-[family-name:var(--font-display)] mb-2">
-              {isFull ? "Join Waitlist" : "Confirm Registration"}
-            </h3>
-            <p className="text-[0.82rem] text-[var(--col-secondary)] leading-[1.6] font-[family-name:var(--font-ui)] mb-6">
-              {isFull
-                ? `This event is full. You'll be added to the waitlist for "${event.title}".`
-                : `Register for "${event.title}" on ${formatDate(event.startDate)}? A QR ticket will be issued immediately.`}
-            </p>
-            <div className="flex items-center gap-3">
+            <div className="flex-shrink-0 mb-4 border-b border-black/5 pb-3">
+              <h3 className="text-[1.1rem] font-semibold text-[var(--col-primary)] font-[family-name:var(--font-display)]">
+                {isFull ? "Join Event Waitlist" : "Complete Event Registration"}
+              </h3>
+              <p className="text-[0.8rem] text-[var(--col-secondary)] font-[family-name:var(--font-ui)] mt-1">
+                {event.title} &bull; {formatDate(event.startDate)}
+              </p>
+            </div>
+
+            <div className="flex-1 overflow-y-auto pr-1 space-y-4 py-2 font-[family-name:var(--font-ui)] text-[0.82rem]">
+              {/* If event has custom registration fields */}
+              {event.registrationFields && event.registrationFields.length > 0 ? (
+                <div className="space-y-3.5">
+                  <div className="p-3 rounded-xl bg-black/[0.03] border border-black/5">
+                    <p className="text-[0.74rem] text-[var(--col-dim)] font-medium">
+                      Please fill out the registration form specified for this event:
+                    </p>
+                  </div>
+                  {event.registrationFields.map((field) => {
+                    const fieldKey = field.name || field.id;
+                    return (
+                      <div key={field.id} className="space-y-1">
+                        <label className="text-[0.78rem] font-medium text-[var(--col-primary)] flex items-center justify-between">
+                          <span>
+                            {field.label} {field.required && <span className="text-[var(--accent)]">*</span>}
+                          </span>
+                          {field.isSystem && (
+                            <span className="text-[0.62rem] text-[var(--col-dim)] font-[family-name:var(--font-mono)]">
+                              Auto-filled
+                            </span>
+                          )}
+                        </label>
+                        {(field.type === "select" || field.fieldType === "select") && field.options ? (
+                          <select
+                            value={formAnswers[fieldKey] || ""}
+                            onChange={(e) => setFormAnswers(prev => ({ ...prev, [fieldKey]: e.target.value }))}
+                            className="w-full px-3 py-2 text-[0.82rem] rounded-xl bg-white border border-[var(--line-soft)] focus:border-[var(--accent)] outline-none"
+                          >
+                            <option value="">Select an option</option>
+                            {field.options.map((opt) => (
+                              <option key={opt} value={opt}>{opt}</option>
+                            ))}
+                          </select>
+                        ) : (
+                          <input
+                            type={(field.type || field.fieldType) === "number" ? "number" : (field.type || field.fieldType) === "email" ? "email" : "text"}
+                            placeholder={`Enter your ${field.label.toLowerCase()}`}
+                            value={formAnswers[fieldKey] || (field.isSystem ? "Auto-synced from profile" : "")}
+                            onChange={(e) => setFormAnswers(prev => ({ ...prev, [fieldKey]: e.target.value }))}
+                            disabled={field.isSystem}
+                            className={`w-full px-3 py-2 text-[0.82rem] rounded-xl border outline-none ${
+                              field.isSystem
+                                ? "bg-black/[0.03] border-black/5 text-[var(--col-secondary)] cursor-not-allowed"
+                                : "bg-white border-[var(--line-soft)] focus:border-[var(--accent)]"
+                            }`}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="p-4 rounded-xl bg-black/[0.03] border border-black/5 space-y-2">
+                  <p className="text-[0.82rem] text-[var(--col-secondary)] leading-relaxed">
+                    Standard attendee profile credentials (Name, University ID, Department, and Email) will be automatically submitted for this event pass.
+                  </p>
+                  <p className="text-[0.74rem] text-[var(--col-dim)]">
+                    A digital QR ticket and pass confirmation will be instantly generated upon confirmation.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="flex-shrink-0 flex items-center gap-3 pt-4 border-t border-black/5 mt-3">
               <Squircle
                 cornerRadius={14}
                 cornerSmoothing={1}
-                className="flex-1 text-center text-[0.8rem] font-medium py-[11px] transition-all duration-300 hover:bg-[hsl(0_0%_92%)] font-[family-name:var(--font-display)] cursor-pointer text-[var(--col-secondary)]"
+                className="flex-1 text-center text-[0.8rem] font-medium py-[10px] transition-all duration-300 hover:bg-[hsl(0_0%_92%)] font-[family-name:var(--font-display)] cursor-pointer text-[var(--col-secondary)]"
                 style={{
                   background: "hsl(0 0% 100% / 0.5)",
                   border: "1px solid hsl(0 0% 85% / 0.4)",
@@ -756,12 +938,12 @@ export default function StudentEventDetailPage() {
               <Squircle
                 cornerRadius={14}
                 cornerSmoothing={1}
-                className="flex-1 text-center text-[0.8rem] font-medium py-[11px] bg-[var(--col-primary)] text-[var(--bg)] transition-all duration-300 hover:opacity-80 font-[family-name:var(--font-display)] cursor-pointer"
+                className="flex-1 text-center text-[0.8rem] font-medium py-[10px] bg-[var(--col-primary)] text-[var(--bg)] transition-all duration-300 hover:opacity-80 font-[family-name:var(--font-display)] cursor-pointer"
                 style={{ boxShadow: "0 2px 12px var(--shadow-lg)" }}
                 asChild
               >
                 <button onClick={handleRegister}>
-                  {isFull ? "Join Waitlist" : "Confirm"}
+                  {isFull ? "Join Waitlist" : "Confirm & Register"}
                 </button>
               </Squircle>
             </div>

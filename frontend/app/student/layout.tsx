@@ -76,7 +76,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
       >
         {/* Logo */}
         <div className="px-7 pt-7 pb-6">
-          <Link href="/" className="flex items-center gap-[8px]">
+          <Link href="/student" className="flex items-center gap-[8px]">
             <div className="w-[8px] h-[8px] rounded-full bg-[var(--accent)] flex-shrink-0 shadow-[0_1px_4px_var(--shadow-lg)]" />
             <div className="text-[1.15rem] leading-none">
               <span className="font-extrabold text-[var(--col-primary)] tracking-[-0.02em] font-[family-name:var(--font-display)]">
@@ -98,9 +98,7 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
         {/* Nav items */}
         <nav className="flex-1 px-4 py-5 space-y-1 overflow-y-auto">
           {NAV_ITEMS.map((item) => {
-            const active = pathname === item.href || (item.href !== "/student" && pathname.startsWith(item.href));
-            const isExactDashboard = item.href === "/student" && pathname === "/student";
-            const isActive = isExactDashboard || active;
+            const isActive = pathname === item.href;
             const Icon = item.icon;
             const showBadge = item.label === "Notifications" && unreadCount > 0;
 

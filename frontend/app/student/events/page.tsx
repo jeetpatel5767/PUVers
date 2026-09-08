@@ -12,14 +12,15 @@ export default function StudentEventsPage() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
 
-  const published = events.filter((e) => e.status === "published");
-  const categories = ["all", ...new Set(published.map((e) => e.category))];
+  const published = events.filter((e) => e.status === "published" || e.status === "PUBLISHED");
+  const categories: string[] = ["all", ...Array.from(new Set(published.map((e) => e.category || e.eventCategory || "General")))];
 
   const filtered = published.filter((e) => {
     const matchSearch =
       e.title.toLowerCase().includes(search.toLowerCase()) ||
-      e.description.toLowerCase().includes(search.toLowerCase());
-    const matchCat = category === "all" || e.category === category;
+      (e.about || e.description || "").toLowerCase().includes(search.toLowerCase());
+    const eventCat = e.category || e.eventCategory || "General";
+    const matchCat = category === "all" || eventCat === category;
     return matchSearch && matchCat;
   });
 

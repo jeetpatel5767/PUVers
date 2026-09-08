@@ -1,6 +1,8 @@
 import type { NavItem, UserRole } from "@/types";
 
 export const ROLE_HOME: Record<UserRole, string> = {
+  participant: "/student",
+  event_admin: "/admin",
   student: "/student",
   admin: "/admin",
   super_admin: "/super-admin",
@@ -45,8 +47,10 @@ export const PLATFORM_ADMIN_NAV: NavItem[] = [
 ];
 
 export const ROLE_LABELS: Record<UserRole, string> = {
-  student: "Student",
-  admin: "Admin",
+  participant: "Participant",
+  event_admin: "Event Admin",
+  student: "Participant",
+  admin: "Event Admin",
   super_admin: "Super Admin",
   platform_admin: "Platform Admin",
 };

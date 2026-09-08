@@ -47,7 +47,8 @@ export default function AdminAnalyticsPage() {
 
   // Category breakdown
   const categories = myEvents.reduce<Record<string, number>>((acc, e) => {
-    acc[e.category] = (acc[e.category] || 0) + 1;
+    const cat = e.category || e.eventCategory || "General";
+    acc[cat] = (acc[cat] || 0) + 1;
     return acc;
   }, {});
   const catEntries = Object.entries(categories).sort((a, b) => b[1] - a[1]);

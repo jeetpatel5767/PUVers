@@ -20,13 +20,22 @@ export default function AdminDashboard() {
   const registrations = useDemoStore((s) => s.registrations);
   const user = useDemoStore((s) => s.user);
 
-  const myEvents = events.filter((e) => e.organizer === "Priya Mehta");
-  const published = myEvents.filter((e) => e.status === "published");
-  const pending = myEvents.filter((e) => e.status === "pending_approval");
+  const myEvents = events.filter(
+    (e) =>
+      e.organizer === "Priya Mehta" ||
+      e.organizer === user?.name ||
+      e.createdBy === user?.id ||
+      e.organizerId === user?.id ||
+      !e.createdBy
+  );
+  const published = myEvents.filter((e) => e.status === "published" || e.status === "PUBLISHED");
+  const pending = myEvents.filter((e) => e.status === "pending_approval" || e.status === "PENDING_APPROVAL");
+  const approved = myEvents.filter((e) => e.status === "APPROVED");
+  const changesReq = myEvents.filter((e) => e.status === "CHANGES_REQUESTED");
   const totalRegs = myEvents.reduce((sum, e) => sum + e.registered, 0);
   const avgFill = myEvents.length
     ? Math.round(
-        myEvents.reduce((sum, e) => sum + (e.registered / e.capacity) * 100, 0) /
+        myEvents.reduce((sum, e) => sum + (e.registered / (e.capacity || 1)) * 100, 0) /
           myEvents.length
       )
     : 0;
@@ -40,18 +49,26 @@ export default function AdminDashboard() {
   };
 
   const stats = [
-    { label: "Total Events", value: myEvents.length, icon: CalendarDays, color: "var(--accent)" },
+    { label: "My Events", value: myEvents.length, icon: CalendarDays, color: "var(--accent)" },
     { label: "Published", value: published.length, icon: CheckCircle2, color: "var(--positive)" },
     { label: "Pending Approval", value: pending.length, icon: Clock, color: "var(--warning)" },
-    { label: "Total Registrations", value: totalRegs, icon: Users, color: "var(--info)" },
+    { label: "Action Needed", value: changesReq.length + approved.length, icon: Users, color: changesReq.length > 0 ? "hsl(25 95% 53%)" : "var(--info)" },
   ];
 
   const statusColors: Record<string, { bg: string; text: string; label: string }> = {
+    PUBLISHED: { bg: "hsl(142 50% 45% / 0.1)", text: "hsl(142 50% 35%)", label: "Published" },
     published: { bg: "hsl(142 50% 45% / 0.1)", text: "hsl(142 50% 35%)", label: "Published" },
-    pending_approval: { bg: "hsl(45 90% 50% / 0.1)", text: "hsl(45 80% 35%)", label: "Pending" },
+    PENDING_APPROVAL: { bg: "hsl(45 90% 50% / 0.1)", text: "hsl(45 80% 35%)", label: "Pending Approval" },
+    pending_approval: { bg: "hsl(45 90% 50% / 0.1)", text: "hsl(45 80% 35%)", label: "Pending Approval" },
+    CHANGES_REQUESTED: { bg: "hsl(25 95% 53% / 0.1)", text: "hsl(25 95% 42%)", label: "Changes Requested" },
+    APPROVED: { bg: "hsl(217 91% 60% / 0.1)", text: "hsl(217 91% 50%)", label: "Approved (Ready to Publish)" },
+    REJECTED: { bg: "hsl(0 84% 60% / 0.1)", text: "hsl(0 84% 45%)", label: "Rejected" },
+    rejected: { bg: "hsl(0 84% 60% / 0.1)", text: "hsl(0 84% 45%)", label: "Rejected" },
+    DRAFT: { bg: "hsl(0 0% 85% / 0.3)", text: "var(--col-secondary)", label: "Draft" },
+    draft: { bg: "hsl(0 0% 85% / 0.3)", text: "var(--col-secondary)", label: "Draft" },
+    COMPLETED: { bg: "hsl(0 0% 60% / 0.1)", text: "var(--col-dim)", label: "Completed" },
     completed: { bg: "hsl(0 0% 60% / 0.1)", text: "var(--col-dim)", label: "Completed" },
     cancelled: { bg: "hsl(0 60% 50% / 0.1)", text: "hsl(0 60% 45%)", label: "Cancelled" },
-    draft: { bg: "hsl(0 0% 85% / 0.3)", text: "var(--col-secondary)", label: "Draft" },
   };
 
   return (

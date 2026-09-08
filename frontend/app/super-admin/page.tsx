@@ -19,10 +19,18 @@ import {
 } from "lucide-react";
 
 const statusColors: Record<string, { bg: string; text: string; label: string }> = {
+  PUBLISHED: { bg: "hsl(142 50% 45% / 0.1)", text: "hsl(142 50% 35%)", label: "Published" },
   published: { bg: "hsl(142 50% 45% / 0.1)", text: "hsl(142 50% 35%)", label: "Published" },
-  pending_approval: { bg: "hsl(45 90% 50% / 0.1)", text: "hsl(45 80% 35%)", label: "Pending" },
+  PENDING_APPROVAL: { bg: "hsl(45 90% 50% / 0.1)", text: "hsl(45 80% 35%)", label: "Pending Approval" },
+  pending_approval: { bg: "hsl(45 90% 50% / 0.1)", text: "hsl(45 80% 35%)", label: "Pending Approval" },
+  CHANGES_REQUESTED: { bg: "hsl(25 95% 53% / 0.1)", text: "hsl(25 95% 42%)", label: "Changes Requested" },
+  APPROVED: { bg: "hsl(217 91% 60% / 0.1)", text: "hsl(217 91% 50%)", label: "Approved" },
+  REJECTED: { bg: "hsl(0 84% 60% / 0.1)", text: "hsl(0 84% 45%)", label: "Rejected" },
+  rejected: { bg: "hsl(0 84% 60% / 0.1)", text: "hsl(0 84% 45%)", label: "Rejected" },
+  COMPLETED: { bg: "hsl(0 0% 60% / 0.1)", text: "var(--col-dim)", label: "Completed" },
   completed: { bg: "hsl(0 0% 60% / 0.1)", text: "var(--col-dim)", label: "Completed" },
   cancelled: { bg: "hsl(0 60% 50% / 0.1)", text: "hsl(0 60% 45%)", label: "Cancelled" },
+  DRAFT: { bg: "hsl(0 0% 85% / 0.3)", text: "var(--col-secondary)", label: "Draft" },
   draft: { bg: "hsl(0 0% 85% / 0.3)", text: "var(--col-secondary)", label: "Draft" },
 };
 
@@ -30,9 +38,9 @@ export default function SuperAdminDashboard() {
   const events = useDemoStore((s) => s.events);
   const user = useDemoStore((s) => s.user);
 
-  const pending = events.filter((e) => e.status === "pending_approval");
-  const published = events.filter((e) => e.status === "published");
-  const completed = events.filter((e) => e.status === "completed");
+  const pending = events.filter((e) => e.status === "pending_approval" || e.status === "PENDING_APPROVAL");
+  const published = events.filter((e) => e.status === "published" || e.status === "PUBLISHED");
+  const completed = events.filter((e) => e.status === "completed" || e.status === "COMPLETED");
   const totalRegs = events.reduce((sum, e) => sum + e.registered, 0);
   const totalCap = events.reduce((sum, e) => sum + e.capacity, 0);
   const avgFill = totalCap ? Math.round((totalRegs / totalCap) * 100) : 0;

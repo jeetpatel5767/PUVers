@@ -9,23 +9,22 @@ import type { UserRole } from "@/types";
 import { useState } from "react";
 
 const ROLES: { value: UserRole; label: string; desc: string; color: string }[] = [
-  { value: "student", label: "Student", desc: "Browse events, register & get certificates", color: "var(--role-student)" },
-  { value: "admin", label: "Admin", desc: "Create events, manage registrations", color: "var(--role-admin)" },
-  { value: "super_admin", label: "Super Admin", desc: "Approve events, manage users", color: "var(--role-super)" },
-  { value: "platform_admin", label: "Platform Admin", desc: "Full platform control & settings", color: "var(--role-platform)" },
+  { value: "participant", label: "Participant", desc: "Browse events, register & get tickets / certificates", color: "var(--role-student)" },
+  { value: "event_admin", label: "Event Admin", desc: "Multi-step event creation & management", color: "var(--role-admin)" },
+  { value: "super_admin", label: "Super Admin", desc: "Approve events & assign EVENT_ADMIN role", color: "var(--role-super)" },
 ];
 
 export default function LoginPage() {
   const router = useRouter();
   const login = useDemoStore((s) => s.login);
-  const [role, setRole] = useState<UserRole>("student");
+  const [role, setRole] = useState<UserRole>("participant");
   const [email, setEmail] = useState("demo@pu.ac.in");
   const [password, setPassword] = useState("demo123");
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     login(role);
-    router.push(ROLE_HOME[role]);
+    router.push(ROLE_HOME[role] || "/student");
   };
 
   return (
@@ -61,16 +60,16 @@ export default function LoginPage() {
           <div>
             <p className="flex items-center gap-[10px] text-[0.68rem] tracking-[0.22em] uppercase text-[var(--col-dim)] mb-4 font-[family-name:var(--font-mono)]">
               <span className="inline-block w-5 h-px bg-[var(--accent)] flex-shrink-0" />
-              Welcome back
+              Screen 02 — Login
             </p>
             <h1 className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold tracking-[-0.03em] leading-[1.1] text-[var(--col-primary)] mb-2 font-[family-name:var(--font-display)]">
-              Login
+              Welcome Back
               <span className="text-[var(--accent)] font-[family-name:var(--font-cursive)] font-normal text-[0.7em]">
                 {" "}.
               </span>
             </h1>
             <p className="text-[0.88rem] text-[var(--col-secondary)] leading-[1.6] mb-8 font-[family-name:var(--font-ui)]">
-              Demo login — pick a role to explore that dashboard.
+              Select your role to access the corresponding workspace.
             </p>
 
             <form onSubmit={handleLogin} className="space-y-5">
@@ -131,7 +130,7 @@ export default function LoginPage() {
               {/* Forgot password */}
               <div className="flex justify-end">
                 <Link href="/forgot-password" className="text-[0.76rem] text-[var(--col-secondary)] hover:text-[var(--col-primary)] transition-colors duration-200 font-[family-name:var(--font-ui)]">
-                  Forgot password?
+                  Forgot Password?
                 </Link>
               </div>
 
@@ -167,10 +166,10 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* Right — Role cards */}
+          {/* Right — Role preview cards */}
           <div className="hidden lg:block">
             <p className="text-[0.68rem] tracking-[0.22em] uppercase text-[var(--col-dim)] mb-4 font-[family-name:var(--font-mono)]">
-              Quick role preview
+              Select Role Preview
             </p>
             <div className="space-y-3">
               {ROLES.map((r) => (
